@@ -1,4 +1,3 @@
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 #app{padding:1rem 0}
@@ -55,6 +54,20 @@
 .opt:hover:not(:disabled){transform:translateX(2px)}
 .nb{transition:background .15s}
 .btnp{box-shadow:0 1px 4px rgba(0,135,81,.25)}
+.tmr{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-text-secondary)}
+.tmr-val{font-size:14px;font-weight:600;color:var(--color-text-primary);min-width:42px}
+.tmr-val.warn{color:#E24B4A}
+.tmr-bar{flex:1;height:4px;background:var(--color-background-secondary);border-radius:2px;overflow:hidden}
+.tmr-fill{height:100%;background:#008751;border-radius:2px;transition:width 1s linear}
+.tmr-fill.warn{background:#E24B4A}
+.setup{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem}
+.setup h3{font-size:15px;font-weight:500;margin-bottom:4px}
+.setup p{font-size:13px;color:var(--color-text-secondary);margin-bottom:1.2rem}
+.dur-grid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.2rem}
+.dur-btn{padding:7px 14px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-primary);font-size:13px;cursor:pointer;font-family:var(--font-sans)}
+.dur-btn.sel{border-color:#008751;background:#d4f0e4;color:#004d2e;font-weight:500}
+.custom-row{display:flex;align-items:center;gap:8px;margin-bottom:1.4rem;font-size:13px;color:var(--color-text-secondary)}
+.custom-row input{width:60px;padding:6px 8px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-size:13px;font-family:var(--font-sans)}
 </style>
 
 <div id="app">
@@ -190,12 +203,57 @@ const BANK=[
 
 const TOTAL=BANK.length;
 let qs=[],cur=0,ans=[],score=0;
+let timerOn=false,totalSecs=0,secsLeft=0,timerInterval=null,customMins=60;
 
-function init(){
+function fmt(s){const m=Math.floor(s/60),sec=s%60;return`${m}:${sec<10?'0':''}${sec}`;}
+
+function startSetup(){
+  clearInterval(timerInterval);
+  const main=document.getElementById('main');
+  const presets=[15,30,45,60,90];
+  const btns=presets.map(m=>`<button class="dur-btn${customMins===m?' sel':''}" onclick="selDur(${m})">${m} min</button>`).join('');
+  main.innerHTML=`
+    <div class="setup">
+      <h3>⏱ Set your timer</h3>
+      <p>Choose how long you want for all 100 questions, or enter a custom time. You can also turn the timer off.</p>
+      <div class="dur-grid">${btns}<button class="dur-btn${!timerOn&&customMins===0?' sel':''}" onclick="selDur(0)">No timer</button></div>
+      <div class="custom-row">
+        Custom: <input type="number" id="cmin" min="1" max="300" value="${customMins||60}" oninput="selDur(+this.value)"> minutes
+      </div>
+      <button class="btn btnp" onclick="startExam()">Start Exam →</button>
+    </div>`;
+}
+
+function selDur(m){
+  customMins=m;
+  document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('sel'));
+  event.target.classList.add('sel');
+  const ci=document.getElementById('cmin');
+  if(ci)ci.value=m||60;
+}
+
+function startExam(){
+  timerOn=customMins>0;
+  totalSecs=customMins*60;
+  secsLeft=totalSecs;
   qs=[...BANK].sort(()=>Math.random()-0.5);
   ans=new Array(TOTAL).fill(null);
-  cur=0;score=0;render();
+  cur=0;score=0;
+  clearInterval(timerInterval);
+  if(timerOn){
+    timerInterval=setInterval(()=>{
+      secsLeft--;
+      const fill=document.getElementById('tmr-fill');
+      const val=document.getElementById('tmr-val');
+      if(fill){fill.style.width=(secsLeft/totalSecs*100)+'%';if(secsLeft<=60){fill.classList.add('warn');}}
+      if(val){val.textContent=fmt(secsLeft);if(secsLeft<=60)val.classList.add('warn');}
+      if(secsLeft<=0){clearInterval(timerInterval);showRes(true);}
+    },1000);
+  }
+  render();
 }
+
+function init(){startSetup();}
 
 function cls(i){
   if(i===cur)return'nb cur';
@@ -216,12 +274,15 @@ function render(){
     if(answered){c=i===q.a?'correct':i===ans[cur]?'wrong':'';}
     return`<button class="opt ${c}" onclick="pick(${i})" ${answered?'disabled':''}>${letters[i]}. ${op}</button>`;
   }).join('');
+  const timerHTML=timerOn?`<div class="tmr"><span>⏱</span><span id="tmr-val" class="tmr-val">${fmt(secsLeft)}</span><div class="tmr-bar"><div id="tmr-fill" class="tmr-fill" style="width:${secsLeft/totalSecs*100}%"></div></div></div>`:'';
 
   main.innerHTML=`
+    ${timerHTML}
     <div class="meta-bar">
       <div class="pill">Q <span>${cur+1}/${TOTAL}</span></div>
       <div class="pill">Score <span>${score}</span></div>
       <div class="pill">Done <span>${done}/${TOTAL}</span></div>
+      <button class="btn" style="font-size:11px;padding:3px 9px;margin-left:auto" onclick="init()">⚙ Timer</button>
     </div>
     <div class="prog-wrap">
       <div class="prog-label"><span>Progress</span><span>${pct}%</span></div>
@@ -239,8 +300,8 @@ function render(){
       <div>${cur>0?`<button class="btn" onclick="goTo(${cur-1})">← Prev</button>`:''}</div>
       <div style="display:flex;gap:8px">
         ${answered&&cur<TOTAL-1?`<button class="btn btnp" onclick="goTo(${cur+1})">Next →</button>`:''}
-        ${answered&&cur===TOTAL-1?`<button class="btn btnp" onclick="showRes()">See Results</button>`:''}
-        ${done===TOTAL&&!answered?`<button class="btn btnp" onclick="showRes()">See Results</button>`:''}
+        ${answered&&cur===TOTAL-1?`<button class="btn btnp" onclick="showRes(false)">See Results</button>`:''}
+        ${done===TOTAL&&!answered?`<button class="btn btnp" onclick="showRes(false)">See Results</button>`:''}
       </div>
     </div>
   `;
@@ -255,7 +316,8 @@ function pick(i){
 
 function goTo(i){cur=i;render();}
 
-function showRes(){
+function showRes(timeout){
+  clearInterval(timerInterval);
   const pct=Math.round((score/TOTAL)*100);
   const tm={};
   qs.forEach((q,i)=>{
@@ -268,9 +330,11 @@ function showRes(){
   else if(pct>=60){grade='Good job!';gc='#BA7517';}
   else if(pct>=40){grade='Keep practicing';gc='#BA7517';}
   else{grade='Needs improvement';gc='#E24B4A';}
+  const toNote=timeout?`<div style="font-size:12px;padding:6px 12px;background:#FCEBEB;color:#A32D2D;border-radius:var(--border-radius-md);margin-bottom:1rem">⏰ Time's up! Unanswered questions counted as wrong.</div>`:'';
 
   document.getElementById('main').innerHTML=`
     <div class="res">
+      ${toNote}
       <div class="sbig" style="color:${gc}">${pct}%</div>
       <div class="ssub">${grade} — ${score} of ${TOTAL} correct</div>
       <div class="sgrid">
