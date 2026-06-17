@@ -1,7 +1,8 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 #app{padding:1rem 0}
-.hdr h2{font-size:18px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px}
+.hdr{padding-bottom:.75rem;border-bottom:1px solid var(--color-border-tertiary);margin-bottom:1rem}
+.hdr h2{font-size:18px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px;display:flex;align-items:center;gap:6px}
 .hdr p{font-size:14px;color:var(--color-text-secondary);margin-bottom:1.2rem}
 .meta-bar{display:flex;gap:10px;margin-bottom:1rem;flex-wrap:wrap}
 .pill{font-size:12px;padding:4px 10px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);background:var(--color-background-secondary)}
@@ -9,13 +10,13 @@
 .prog-wrap{margin-bottom:1rem}
 .prog-label{display:flex;justify-content:space-between;font-size:13px;color:var(--color-text-secondary);margin-bottom:6px}
 .prog-bar{height:4px;background:var(--color-background-secondary);border-radius:2px;overflow:hidden;border:0.5px solid var(--color-border-tertiary)}
-.prog-fill{height:100%;background:#008751;border-radius:2px;transition:width 0.3s}
+.prog-fill{height:100%;border-radius:2px;transition:width 0.3s}
 .nav-grid{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:1rem}
 .nb{width:26px;height:26px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-secondary);font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--font-sans)}
-.nb.cur{border-color:#008751;color:#004d2e;background:#d4f0e4;font-weight:500}
+.nb.cur{font-weight:500}
 .nb.ok{background:#EAF3DE;border-color:#639922;color:#3B6D11}
 .nb.bad{background:#FCEBEB;border-color:#E24B4A;color:#A32D2D}
-.qcard{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem}
+.qcard{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem;transition:box-shadow .2s}
 .badge{display:inline-block;font-size:11px;padding:3px 8px;border-radius:var(--border-radius-md);margin-bottom:10px;font-weight:500}
 .easy{background:#EAF3DE;color:#3B6D11}
 .medium{background:#FAEEDA;color:#854F0B}
@@ -23,17 +24,16 @@
 .topic{background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary);margin-left:6px}
 .qt{font-size:15px;color:var(--color-text-primary);line-height:1.6;margin-bottom:1rem;font-weight:500}
 .opts{display:flex;flex-direction:column;gap:8px}
-.opt{text-align:left;padding:10px 14px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-size:14px;cursor:pointer;transition:background 0.15s;line-height:1.5;font-family:var(--font-sans)}
-.opt:hover:not(:disabled){background:var(--color-background-secondary)}
+.opt{text-align:left;padding:10px 14px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-size:14px;cursor:pointer;transition:background .15s,border-color .15s,transform .1s;line-height:1.5;font-family:var(--font-sans)}
+.opt:hover:not(:disabled){background:var(--color-background-secondary);transform:translateX(2px)}
 .opt.correct{background:#EAF3DE;border-color:#008751;color:#3B6D11}
 .opt.wrong{background:#FCEBEB;border-color:#E24B4A;color:#A32D2D}
 .opt:disabled{cursor:default}
-.exp{margin-top:12px;padding:10px 14px;background:var(--color-background-secondary);border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;font-size:13px;color:var(--color-text-secondary);line-height:1.6;border-left:3px solid #008751}
+.exp{margin-top:12px;padding:10px 14px;background:var(--color-background-secondary);border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;font-size:13px;color:var(--color-text-secondary);line-height:1.6;border-left:3px solid}
 .nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;flex-wrap:wrap;gap:8px}
 .btn{padding:9px 18px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-primary);font-size:14px;cursor:pointer;font-family:var(--font-sans)}
 .btn:hover{background:var(--color-background-secondary)}
-.btnp{background:#008751;color:#fff;border-color:#008751}
-.btnp:hover{background:#005c37}
+.btnp{color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
 .res{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:2rem;text-align:center}
 .sbig{font-size:52px;font-weight:500;line-height:1;margin-bottom:6px}
 .ssub{font-size:15px;color:var(--color-text-secondary);margin-bottom:1.5rem}
@@ -44,42 +44,40 @@
 .tbd{text-align:left;border-top:0.5px solid var(--color-border-tertiary);padding-top:1rem}
 .tr{display:flex;justify-content:space-between;padding:6px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px}
 .tr:last-child{border-bottom:none}
-/* ── extras ── */
-#app{border-top:3px solid #008751}
-.hdr{padding-bottom:.75rem;border-bottom:1px solid var(--color-border-tertiary);margin-bottom:1rem}
-.hdr h2{display:flex;align-items:center;gap:6px}
-.qcard{transition:box-shadow .2s}
-.qcard:hover{box-shadow:0 2px 10px rgba(0,135,81,.08)}
-.opt{transition:background .15s,border-color .15s,transform .1s}
-.opt:hover:not(:disabled){transform:translateX(2px)}
-.nb{transition:background .15s}
-.btnp{box-shadow:0 1px 4px rgba(0,135,81,.25)}
-.tmr{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-text-secondary)}
+.tmr{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-text-secondary);margin-bottom:1rem}
 .tmr-val{font-size:14px;font-weight:600;color:var(--color-text-primary);min-width:42px}
 .tmr-val.warn{color:#E24B4A}
 .tmr-bar{flex:1;height:4px;background:var(--color-background-secondary);border-radius:2px;overflow:hidden}
-.tmr-fill{height:100%;background:#008751;border-radius:2px;transition:width 1s linear}
+.tmr-fill{height:100%;border-radius:2px;transition:width 1s linear}
 .tmr-fill.warn{background:#E24B4A}
 .setup{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem}
 .setup h3{font-size:15px;font-weight:500;margin-bottom:4px}
 .setup p{font-size:13px;color:var(--color-text-secondary);margin-bottom:1.2rem}
 .dur-grid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.2rem}
 .dur-btn{padding:7px 14px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-primary);font-size:13px;cursor:pointer;font-family:var(--font-sans)}
-.dur-btn.sel{border-color:#008751;background:#d4f0e4;color:#004d2e;font-weight:500}
+.dur-btn.sel{font-weight:500}
 .custom-row{display:flex;align-items:center;gap:8px;margin-bottom:1.4rem;font-size:13px;color:var(--color-text-secondary)}
 .custom-row input{width:60px;padding:6px 8px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-size:13px;font-family:var(--font-sans)}
+/* section picker */
+.pick-grid{display:flex;flex-direction:column;gap:12px;margin-top:.5rem}
+.pick-card{display:flex;align-items:center;gap:14px;padding:1.1rem 1.2rem;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);background:var(--color-background-primary);cursor:pointer;text-align:left;font-family:var(--font-sans);transition:box-shadow .2s,transform .1s}
+.pick-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
+.pick-emoji{font-size:28px;flex-shrink:0}
+.pick-text h4{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.pick-text p{font-size:13px;color:var(--color-text-secondary)}
+.pick-arrow{margin-left:auto;color:var(--color-text-secondary);font-size:18px}
 </style>
 
 <div id="app">
   <div class="hdr">
-    <h2>🇳🇬 Nigeria Current Affairs & History CBT</h2>
-    <p>200 questions · Politics, States, History, Sports, Music, Agencies, Ministers, Sanya & Scars</p>
+    <h2 id="hdr-title">📚 CBT Practice Hub</h2>
+    <p id="hdr-sub">Choose a section to begin</p>
   </div>
-  <div id="main"><p style="color:var(--color-text-secondary);font-size:14px;padding:2rem 0">Loading questions...</p></div>
+  <div id="main"><p style="color:var(--color-text-secondary);font-size:14px;padding:2rem 0">Loading...</p></div>
 </div>
 
 <script>
-const BANK=[
+const NIGERIA_BANK=[
   /* ── POLITICS & POLITICAL PARTIES ── */
   {q:"Which political party did Peter Obi leave in 2022 to pursue his presidential ambition?",o:["APC","PDP","NNPP","LP"],a:1,t:"Politics & Parties",d:"medium",e:"Peter Obi resigned from the Peoples Democratic Party (PDP) in May 2022, then joined the Labour Party (LP) to contest the 2023 presidential election."},
   {q:"Under which party did Peter Obi contest the 2023 Nigerian presidential election?",o:["PDP","APC","Labour Party","NNPP"],a:2,t:"Politics & Parties",d:"easy",e:"Peter Obi ran on the Labour Party (LP) platform and came third in the 2023 presidential election, though his supporters ('Obidients') contested the results."},
@@ -292,43 +290,235 @@ const BANK=[
   {q:"What is the slogan of Niger State?",o:["Power State","Centre of Excellence","The Power State","Power of All Lands"],a:2,t:"States & Geography",d:"medium",e:"Niger State's slogan is 'The Power State,' a reference to its three major hydroelectric dams — Kainji, Jebba, and Shiroro — which supply much of Nigeria's electricity. Capital: Minna."},
   {q:"What is the slogan of Sokoto State?",o:["Seat of the Caliphate","Land of Honour","Gateway to the North","Centre of Islamic Heritage"],a:0,t:"States & Geography",d:"medium",e:"Sokoto State's slogan is 'Seat of the Caliphate,' reflecting its historical significance as the centre of the Sokoto Caliphate founded by Usman dan Fodio in 1804. Capital: Sokoto."}
 ];
+const GLOBAL_BANK=[
+  /* ── FLAGS ── */
+  {q:"Which country's flag contains the Union Jack in its top-left corner?",o:["Ireland","Australia","Germany","South Africa"],a:1,t:"Flags",d:"easy",e:"Australia's flag features the Union Jack in the top-left (canton), reflecting its history as a British colony, alongside the Commonwealth Star and the Southern Cross constellation."},
+  {q:"Besides Australia, which other country's national flag also includes the Union Jack?",o:["Canada","New Zealand","India","Kenya"],a:1,t:"Flags",d:"easy",e:"New Zealand's flag also has the Union Jack in its canton, along with four red stars representing the Southern Cross. Canada's flag (the Maple Leaf) replaced the Union Jack design in 1965."},
+  {q:"Which country's flag is the only national flag that is not rectangular?",o:["Switzerland","Vatican City","Nepal","Bhutan"],a:2,t:"Flags",d:"medium",e:"Nepal's flag is the only non-rectangular national flag in the world — composed of two stacked triangular pennants (a pennon shape)."},
+  {q:"What do the colours green, white, and green represent on the Nigerian flag?",o:["Agriculture, peace, agriculture","Forest, unity, forest","Agriculture, unity, agriculture","Islam, peace, Christianity"],a:0,t:"Flags",d:"medium",e:"On Nigeria's flag, the two green bands represent the nation's natural wealth and agriculture, while the white band in the middle symbolises peace and unity."},
+  {q:"Which country's flag is the oldest continuously used national flag still in use today?",o:["United Kingdom","Denmark","France","Japan"],a:1,t:"Flags",d:"hard",e:"Denmark's flag (the Dannebrog) is believed to date back to the 13th century, making it the oldest continuously used national flag still in use."},
+  {q:"The Pan-African colours — red, black, and green — were popularised by which movement/leader?",o:["Kwame Nkrumah","Marcus Garvey","Nelson Mandela","Haile Selassie"],a:1,t:"Flags",d:"medium",e:"Marcus Garvey and the UNIA popularised the red, black, and green Pan-African colours in 1920, which later influenced many African nations' flags."},
+  {q:"Which two countries have nearly identical flags (differing mainly in shade of red and a coat of arms), often confused with each other?",o:["Romania and Chad","Indonesia and Monaco","Ireland and Côte d'Ivoire","Poland and Indonesia"],a:1,t:"Flags",d:"medium",e:"Indonesia and Monaco have nearly identical flags — both are simple red-over-white (Indonesia) or red-over-white horizontal bicolours, differing only slightly in proportion."},
+  {q:"What symbol appears at the centre of the flag of Canada?",o:["A beaver","A maple leaf","A snowflake","A loon"],a:1,t:"Flags",d:"easy",e:"Canada's flag, adopted in 1965, features a red maple leaf centred on a white square, flanked by two red bands."},
+  {q:"The Brazilian flag's motto 'Ordem e Progresso' translates to what in English?",o:["Order and Progress","Unity and Strength","Freedom and Justice","Peace and Prosperity"],a:0,t:"Flags",d:"medium",e:"Brazil's flag motto 'Ordem e Progresso' translates to 'Order and Progress,' inspired by positivist philosophy."},
+  {q:"Which African country's flag has a unique central black star symbolising African freedom?",o:["Senegal","Ghana","Cameroon","Mali"],a:1,t:"Flags",d:"easy",e:"Ghana's flag features a black star at its centre, representing African emancipation and unity — it was the first sub-Saharan African country to gain independence."},
 
-const TOTAL=BANK.length;
-let qs=[],cur=0,ans=[],score=0;
+  /* ── WORLD FIRSTS / GENERAL HISTORY ── */
+  {q:"Which African country was the first to gain independence from colonial rule in the 20th century?",o:["Egypt","Ghana","Nigeria","Ethiopia"],a:1,t:"World Firsts",d:"medium",e:"Ghana (then the Gold Coast) became the first sub-Saharan African country to gain independence from colonial rule, on March 6, 1957, under Kwame Nkrumah. Note: Liberia and Ethiopia were never formally colonised in the same way."},
+  {q:"Which country was the first to send a human to space?",o:["United States","Soviet Union","China","France"],a:1,t:"World Firsts",d:"easy",e:"The Soviet Union sent the first human, Yuri Gagarin, into space on April 12, 1961, aboard Vostok 1."},
+  {q:"Who was the first man to walk on the moon?",o:["Buzz Aldrin","Yuri Gagarin","Neil Armstrong","John Glenn"],a:2,t:"World Firsts",d:"easy",e:"Neil Armstrong became the first human to walk on the moon on July 20, 1969, during NASA's Apollo 11 mission, famously saying 'That's one small step for man...'"},
+  {q:"Which country was the first to grant women the right to vote nationally?",o:["United States","United Kingdom","New Zealand","Finland"],a:2,t:"World Firsts",d:"medium",e:"New Zealand became the first self-governing country to grant women the right to vote in national elections, in 1893."},
+  {q:"What was the first country to abolish slavery?",o:["United States","Haiti","France","United Kingdom"],a:1,t:"World Firsts",d:"medium",e:"Haiti, following its successful slave revolt and revolution, abolished slavery and declared independence in 1804 — the first nation founded by formerly enslaved people."},
+  {q:"Which was the first country to use paper currency?",o:["United Kingdom","China","Italy","United States"],a:1,t:"World Firsts",d:"medium",e:"China was the first country to use paper currency, during the Tang and Song dynasties (around the 7th–11th centuries AD), long before it spread to Europe."},
+  {q:"The first modern Olympic Games were held in which city?",o:["Paris","London","Athens","Rome"],a:2,t:"World Firsts",d:"easy",e:"The first modern Olympic Games were held in Athens, Greece, in 1896, organised by Pierre de Coubertin."},
+  {q:"Which was the first country to land a spacecraft on the far side of the Moon?",o:["United States","Russia","China","India"],a:2,t:"World Firsts",d:"medium",e:"China's Chang'e 4 mission made the first-ever soft landing on the far side of the Moon in January 2019."},
+
+  /* ── FOUNDERS, INVENTORS & TECH ── */
+  {q:"Who is credited as the primary co-founder of Facebook?",o:["Bill Gates","Mark Zuckerberg","Larry Page","Jeff Bezos"],a:1,t:"Founders & Inventors",d:"easy",e:"Mark Zuckerberg co-founded Facebook in 2004 while a student at Harvard University, along with roommates Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes."},
+  {q:"Who founded Microsoft?",o:["Steve Jobs and Steve Wozniak","Bill Gates and Paul Allen","Larry Page and Sergey Brin","Jeff Bezos"],a:1,t:"Founders & Inventors",d:"easy",e:"Bill Gates and Paul Allen co-founded Microsoft in 1975."},
+  {q:"Who founded Apple Inc. along with Steve Jobs?",o:["Steve Wozniak","Bill Gates","Tim Cook","Jack Dorsey"],a:0,t:"Founders & Inventors",d:"easy",e:"Steve Wozniak co-founded Apple with Steve Jobs (and Ronald Wayne) in 1976."},
+  {q:"Who founded Amazon?",o:["Elon Musk","Jeff Bezos","Larry Ellison","Mark Cuban"],a:1,t:"Founders & Inventors",d:"easy",e:"Jeff Bezos founded Amazon in 1994, initially as an online bookstore."},
+  {q:"Who founded Tesla and SpaceX?",o:["Jeff Bezos","Elon Musk","Larry Page","Sam Altman"],a:1,t:"Founders & Inventors",d:"easy",e:"Elon Musk co-founded Tesla (electric vehicles) and founded SpaceX (rockets and space exploration)."},
+  {q:"Who is credited with inventing the World Wide Web?",o:["Bill Gates","Tim Berners-Lee","Vint Cerf","Steve Jobs"],a:1,t:"Founders & Inventors",d:"medium",e:"Tim Berners-Lee, a British computer scientist, invented the World Wide Web in 1989 while working at CERN."},
+  {q:"Who co-founded Google?",o:["Larry Page and Sergey Brin","Bill Gates and Paul Allen","Jack Dorsey and Biz Stone","Reid Hoffman"],a:0,t:"Founders & Inventors",d:"easy",e:"Larry Page and Sergey Brin co-founded Google in 1998 while PhD students at Stanford University."},
+  {q:"Who founded Twitter (now X)?",o:["Mark Zuckerberg","Jack Dorsey","Evan Spiegel","Kevin Systrom"],a:1,t:"Founders & Inventors",d:"medium",e:"Jack Dorsey, along with Noah Glass, Biz Stone, and Evan Williams, co-founded Twitter in 2006."},
+  {q:"Who invented the telephone?",o:["Thomas Edison","Alexander Graham Bell","Nikola Tesla","Guglielmo Marconi"],a:1,t:"Founders & Inventors",d:"easy",e:"Alexander Graham Bell is credited with patenting the first practical telephone in 1876."},
+  {q:"Who is credited with inventing the light bulb (practical incandescent version)?",o:["Nikola Tesla","Thomas Edison","Benjamin Franklin","James Watt"],a:1,t:"Founders & Inventors",d:"easy",e:"Thomas Edison developed and patented a commercially practical incandescent light bulb in 1879, though earlier inventors had experimented with similar concepts."},
+  {q:"Who founded the social media platform Instagram?",o:["Kevin Systrom and Mike Krieger","Evan Spiegel and Bobby Murphy","Jack Dorsey","Mark Zuckerberg"],a:0,t:"Founders & Inventors",d:"medium",e:"Kevin Systrom and Mike Krieger founded Instagram in 2010. Facebook (Meta) acquired it in 2012."},
+  {q:"Who founded Alibaba, China's e-commerce giant?",o:["Jack Ma","Pony Ma","Robin Li","Zhang Yiming"],a:0,t:"Founders & Inventors",d:"medium",e:"Jack Ma founded Alibaba Group in 1999, building it into one of the world's largest e-commerce and technology companies."},
+  {q:"Who is the founder of OpenAI, the company behind ChatGPT?",o:["Founded by a single person — Sam Altman","A group including Sam Altman, Elon Musk, and others","Bill Gates","Mark Zuckerberg"],a:1,t:"Founders & Inventors",d:"medium",e:"OpenAI was founded in 2015 by a group including Sam Altman, Elon Musk, Greg Brockman, Ilya Sutskever, and others, as a non-profit AI research company."},
+  {q:"Who founded WhatsApp?",o:["Jan Koum and Brian Acton","Evan Spiegel","Kevin Systrom","Jack Dorsey"],a:0,t:"Founders & Inventors",d:"medium",e:"Jan Koum and Brian Acton founded WhatsApp in 2009. Facebook acquired it in 2014 for about $19 billion."},
+
+  /* ── WORLD GEOGRAPHY ── */
+  {q:"What is the largest country in the world by land area?",o:["China","United States","Canada","Russia"],a:3,t:"World Geography",d:"easy",e:"Russia is the largest country in the world by land area, spanning roughly 17 million square kilometres across Europe and Asia."},
+  {q:"What is the smallest country in the world by area?",o:["Monaco","San Marino","Vatican City","Liechtenstein"],a:2,t:"World Geography",d:"easy",e:"Vatican City is the smallest country in the world, at just about 0.49 square kilometres, entirely enclosed within Rome, Italy."},
+  {q:"Which is the longest river in the world?",o:["Amazon River","Nile River","Yangtze River","Mississippi River"],a:1,t:"World Geography",d:"easy",e:"The Nile River, flowing through north-eastern Africa, is generally considered the longest river in the world at about 6,650 km, though some studies argue the Amazon may be longer."},
+  {q:"What is the tallest mountain in the world (above sea level)?",o:["K2","Mount Kilimanjaro","Mount Everest","Denali"],a:2,t:"World Geography",d:"easy",e:"Mount Everest, on the border of Nepal and China (Tibet), is the tallest mountain above sea level at 8,849 metres."},
+  {q:"Which is the largest continent by both area and population?",o:["Africa","Asia","Europe","North America"],a:1,t:"World Geography",d:"easy",e:"Asia is the largest continent by both land area and population, home to over half the world's people."},
+  {q:"What is the largest desert in the world?",o:["Sahara Desert","Gobi Desert","Antarctic Desert","Arabian Desert"],a:2,t:"World Geography",d:"medium",e:"The Antarctic Desert is technically the largest desert in the world by area (a desert is defined by low precipitation, not just heat). The Sahara is the largest hot desert."},
+  {q:"Which country has the most natural lakes in the world?",o:["United States","Russia","Canada","Finland"],a:2,t:"World Geography",d:"medium",e:"Canada has more lakes than the rest of the world combined, with over 2 million lakes within its borders."},
+  {q:"Mount Kilimanjaro, Africa's highest peak, is located in which country?",o:["Kenya","Tanzania","Uganda","Rwanda"],a:1,t:"World Geography",d:"medium",e:"Mount Kilimanjaro is located in Tanzania, near the border with Kenya. It is the highest free-standing mountain in the world."},
+  {q:"Which strait separates Europe and Africa at their closest point?",o:["Strait of Hormuz","Strait of Gibraltar","Bosphorus Strait","Bering Strait"],a:1,t:"World Geography",d:"medium",e:"The Strait of Gibraltar separates Spain (Europe) from Morocco (Africa), at its narrowest point only about 14 km wide."},
+  {q:"Which is the largest ocean in the world?",o:["Atlantic Ocean","Indian Ocean","Arctic Ocean","Pacific Ocean"],a:3,t:"World Geography",d:"easy",e:"The Pacific Ocean is the largest and deepest ocean, covering about a third of the Earth's surface."},
+  {q:"What is the capital city of Australia?",o:["Sydney","Melbourne","Canberra","Brisbane"],a:2,t:"World Geography",d:"medium",e:"Canberra, not Sydney or Melbourne, is the capital city of Australia. It was purpose-built as the capital in the early 20th century."},
+  {q:"Which African country is completely surrounded by South Africa (an enclave)?",o:["Swaziland (Eswatini)","Lesotho","Botswana","Malawi"],a:1,t:"World Geography",d:"hard",e:"Lesotho is an enclave entirely surrounded by South Africa, making it one of only three such countries in the world."},
+
+  /* ── RECORD HOLDERS & ACHIEVEMENTS ── */
+  {q:"Who holds the world record for the 100m sprint (men's)?",o:["Carl Lewis","Tyson Gay","Usain Bolt","Justin Gatlin"],a:2,t:"Records & Achievements",d:"easy",e:"Usain Bolt of Jamaica set the men's 100m world record of 9.58 seconds at the 2009 World Championships in Berlin."},
+  {q:"Which country has won the most FIFA World Cup titles?",o:["Germany","Argentina","Brazil","Italy"],a:2,t:"Records & Achievements",d:"easy",e:"Brazil has won the FIFA World Cup a record five times: 1958, 1962, 1970, 1994, and 2002."},
+  {q:"Who has won the most Olympic gold medals in history?",o:["Usain Bolt","Michael Phelps","Carl Lewis","Mark Spitz"],a:1,t:"Records & Achievements",d:"easy",e:"American swimmer Michael Phelps holds the record for the most Olympic gold medals, with 23 across his career."},
+  {q:"What is the tallest building in the world as of the mid-2020s?",o:["Shanghai Tower","Burj Khalifa","One World Trade Center","Petronas Towers"],a:1,t:"Records & Achievements",d:"easy",e:"The Burj Khalifa in Dubai, UAE, standing at 828 metres, remains the tallest building in the world as of the mid-2020s."},
+  {q:"Who is the youngest person to win a Nobel Peace Prize?",o:["Greta Thunberg","Malala Yousafzai","Wangari Maathai","Tawakkol Karman"],a:1,t:"Records & Achievements",d:"medium",e:"Malala Yousafzai of Pakistan won the Nobel Peace Prize in 2014 at age 17, making her the youngest Nobel laureate ever in any category."},
+  {q:"Which country has the largest population in the world (as of the mid-2020s)?",o:["China","India","United States","Indonesia"],a:1,t:"Records & Achievements",d:"medium",e:"India overtook China to become the world's most populous country around 2023, according to UN estimates."},
+  {q:"What is the longest-running animated TV series in US history?",o:["Family Guy","SpongeBob SquarePants","The Simpsons","South Park"],a:2,t:"Records & Achievements",d:"medium",e:"The Simpsons, which premiered in 1989, is the longest-running American animated series and longest-running American sitcom in history."},
+
+  /* ── WORLD CULTURE & MISC ── */
+  {q:"Which language has the most native speakers in the world?",o:["English","Spanish","Hindi","Mandarin Chinese"],a:3,t:"World Culture",d:"medium",e:"Mandarin Chinese has the most native speakers of any language in the world, with over 900 million native speakers."},
+  {q:"What is the official currency of Japan?",o:["Won","Yen","Yuan","Ringgit"],a:1,t:"World Culture",d:"easy",e:"The Japanese yen is the official currency of Japan."},
+  {q:"Which country is known as the 'Land of the Rising Sun'?",o:["China","Japan","South Korea","Thailand"],a:1,t:"World Culture",d:"easy",e:"Japan is known as the 'Land of the Rising Sun,' a name derived from its position to the east of mainland Asia."},
+  {q:"The Great Wall of China was built primarily to defend against which group?",o:["Mongol and other nomadic invasions","Japanese invasions","Russian invasions","Korean invasions"],a:0,t:"World Culture",d:"medium",e:"The Great Wall of China was built over centuries primarily to protect Chinese states from invasions by Mongol and other nomadic groups from the north."},
+  {q:"Which European city is famously built on a series of canals and islands?",o:["Amsterdam","Venice","Stockholm","Copenhagen"],a:1,t:"World Culture",d:"easy",e:"Venice, Italy, is built across more than 100 small islands connected by canals and bridges, making it one of the world's most distinctive cities."},
+  {q:"What is the name of India's traditional national sport?",o:["Cricket","Kabaddi","Hockey","Kho Kho"],a:2,t:"World Culture",d:"hard",e:"Hockey (field hockey) is officially India's national sport, though cricket is by far more popular and widely followed today."},
+  {q:"The Eiffel Tower, located in Paris, was originally built for which event?",o:["The 1889 World's Fair","The 1900 Summer Olympics","Bastille Day Centennial","The French Revolution Bicentennial"],a:0,t:"World Culture",d:"medium",e:"The Eiffel Tower was built as the entrance arch for the 1889 World's Fair (Exposition Universelle), marking the centennial of the French Revolution."},
+  {q:"Which country is home to the ancient pyramids of Giza?",o:["Sudan","Egypt","Mexico","Peru"],a:1,t:"World Culture",d:"easy",e:"The Pyramids of Giza, including the Great Pyramid, are located in Egypt, just outside modern-day Cairo."},
+  {q:"What is the traditional Japanese art of paper folding called?",o:["Ikebana","Origami","Bonsai","Kintsugi"],a:1,t:"World Culture",d:"easy",e:"Origami is the traditional Japanese art of paper folding, used to create decorative and symbolic shapes."},
+  {q:"Which country is the origin of the martial art 'Taekwondo'?",o:["China","Japan","South Korea","Thailand"],a:2,t:"World Culture",d:"medium",e:"Taekwondo originated in South Korea and is now one of the most widely practised martial arts in the world, and an Olympic sport."},
+
+  /* ── WORLD ORGANISATIONS & LEADERS ── */
+  {q:"What does the UN stand for?",o:["United Nations","United Nationalities","Universal Network","United Nordics"],a:0,t:"World Organisations",d:"easy",e:"UN stands for United Nations, an international organisation founded in 1945 to maintain international peace and security."},
+  {q:"In which city is the headquarters of the United Nations located?",o:["Geneva","Brussels","New York City","The Hague"],a:2,t:"World Organisations",d:"easy",e:"The United Nations headquarters is located in New York City, USA, though it also has major offices in Geneva, Vienna, and Nairobi."},
+  {q:"What does NATO stand for?",o:["North American Trade Organisation","North Atlantic Treaty Organisation","National Alliance for Trade and Order","Northern Allied Treaty Organisation"],a:1,t:"World Organisations",d:"medium",e:"NATO stands for North Atlantic Treaty Organisation, a military alliance of North American and European countries founded in 1949."},
+  {q:"What does the WHO stand for, and what is its role?",o:["World Health Organisation — coordinates global public health","World Humanitarian Office — disaster relief","World Heritage Organisation — preserves cultural sites","World Hunger Organisation — food security"],a:0,t:"World Organisations",d:"easy",e:"WHO stands for World Health Organisation, a UN agency responsible for international public health, founded in 1948."},
+  {q:"Which organisation is the African Union (AU) the successor of?",o:["Organisation of African Unity (OAU)","British Commonwealth","ECOWAS","Pan-African Congress"],a:0,t:"World Organisations",d:"medium",e:"The African Union (AU) was established in 2002 as the successor to the Organisation of African Unity (OAU), which had been founded in 1963."},
+  {q:"What does ECOWAS stand for?",o:["Economic Community of West African States","European Community of West African States","East and Central West African Sector","Economic Council of West African Schemes"],a:0,t:"World Organisations",d:"medium",e:"ECOWAS stands for Economic Community of West African States, a regional political and economic union of 15 (now fewer after recent withdrawals) West African countries, including Nigeria."},
+  {q:"Who is generally regarded as the first Secretary-General of the United Nations?",o:["Kofi Annan","Trygve Lie","Dag Hammarskjöld","U Thant"],a:1,t:"World Organisations",d:"hard",e:"Trygve Lie of Norway was the first Secretary-General of the United Nations, serving from 1946 to 1952."},
+  {q:"Which African was the first to serve as UN Secretary-General?",o:["Nelson Mandela","Kofi Annan","Boutros Boutros-Ghali","Both Annan and Boutros-Ghali"],a:3,t:"World Organisations",d:"medium",e:"Both Boutros Boutros-Ghali (Egypt, 1992–1996) and Kofi Annan (Ghana, 1997–2006) were African UN Secretaries-General, with Boutros-Ghali being the first."},
+
+  /* ── SCIENCE & DISCOVERY ── */
+  {q:"Who developed the theory of relativity?",o:["Isaac Newton","Albert Einstein","Stephen Hawking","Niels Bohr"],a:1,t:"Science & Discovery",d:"easy",e:"Albert Einstein developed the theory of relativity, including special relativity (1905) and general relativity (1915)."},
+  {q:"Who is credited with discovering penicillin?",o:["Louis Pasteur","Alexander Fleming","Marie Curie","Edward Jenner"],a:1,t:"Science & Discovery",d:"medium",e:"Alexander Fleming discovered penicillin in 1928, the first true antibiotic, revolutionising the treatment of bacterial infections."},
+  {q:"Who proposed the theory of evolution by natural selection?",o:["Gregor Mendel","Charles Darwin","Louis Pasteur","Carl Linnaeus"],a:1,t:"Science & Discovery",d:"easy",e:"Charles Darwin proposed the theory of evolution by natural selection in his 1859 book 'On the Origin of Species.'"},
+  {q:"Which scientist is known for developing the polio vaccine?",o:["Jonas Salk","Edward Jenner","Robert Koch","Louis Pasteur"],a:0,t:"Science & Discovery",d:"medium",e:"Jonas Salk developed the first successful polio vaccine, introduced in 1955."},
+  {q:"What is the chemical symbol for gold?",o:["Go","Gd","Au","Ag"],a:2,t:"Science & Discovery",d:"easy",e:"The chemical symbol for gold is Au, from the Latin word 'aurum.'"},
+  {q:"Marie Curie won Nobel Prizes in which two scientific fields?",o:["Chemistry and Medicine","Physics and Chemistry","Physics and Medicine","Medicine and Biology"],a:1,t:"Science & Discovery",d:"medium",e:"Marie Curie won Nobel Prizes in both Physics (1903) and Chemistry (1911) — the first person ever to win Nobel Prizes in two different sciences."},
+  {q:"What is the closest planet to the Sun?",o:["Venus","Earth","Mercury","Mars"],a:2,t:"Science & Discovery",d:"easy",e:"Mercury is the closest planet to the Sun in our solar system."},
+  {q:"Which gas makes up the largest percentage of Earth's atmosphere?",o:["Oxygen","Carbon dioxide","Nitrogen","Hydrogen"],a:2,t:"Science & Discovery",d:"medium",e:"Nitrogen makes up about 78% of Earth's atmosphere, with oxygen at about 21%."},
+
+  /* ── WORLD LEADERS, POLITICS & MISC HISTORY ── */
+  {q:"Who was the first President of the United States?",o:["Thomas Jefferson","Abraham Lincoln","George Washington","John Adams"],a:2,t:"World Leaders & History",d:"easy",e:"George Washington was the first President of the United States, serving from 1789 to 1797."},
+  {q:"Who was the first female Prime Minister of the United Kingdom?",o:["Theresa May","Margaret Thatcher","Liz Truss","Angela Merkel"],a:1,t:"World Leaders & History",d:"easy",e:"Margaret Thatcher became the UK's first female Prime Minister in 1979, serving until 1990. (Angela Merkel was Germany's, not the UK's, leader.)"},
+  {q:"Who was the first President of post-apartheid South Africa?",o:["Thabo Mbeki","Nelson Mandela","F.W. de Klerk","Jacob Zuma"],a:1,t:"World Leaders & History",d:"easy",e:"Nelson Mandela became South Africa's first democratically elected, post-apartheid president in 1994, after spending 27 years in prison."},
+  {q:"The Berlin Wall, which divided East and West Berlin, fell in which year?",o:["1985","1987","1989","1991"],a:2,t:"World Leaders & History",d:"medium",e:"The Berlin Wall fell on November 9, 1989, marking a key moment in the end of the Cold War and German reunification."},
+  {q:"Which empire was Julius Caesar a leader of?",o:["Greek Empire","Roman Empire/Republic","Ottoman Empire","Persian Empire"],a:1,t:"World Leaders & History",d:"easy",e:"Julius Caesar was a Roman general and statesman who played a critical role in the transition from the Roman Republic to the Roman Empire."},
+  {q:"World War II ended in which year?",o:["1943","1944","1945","1946"],a:2,t:"World Leaders & History",d:"easy",e:"World War II ended in 1945, with Germany surrendering in May and Japan surrendering in September after the atomic bombings."},
+  {q:"Who was the first Emperor of China to unify the country?",o:["Qin Shi Huang","Liu Bang","Kublai Khan","Sun Yat-sen"],a:0,t:"World Leaders & History",d:"hard",e:"Qin Shi Huang unified China in 221 BC, becoming its first emperor and beginning construction of the early Great Wall."},
+  {q:"Mahatma Gandhi led India's independence movement primarily through what method?",o:["Armed rebellion","Nonviolent civil disobedience","Diplomatic negotiation only","Economic sanctions"],a:1,t:"World Leaders & History",d:"easy",e:"Mahatma Gandhi championed nonviolent civil disobedience (Satyagraha) as the primary method in India's struggle for independence from British rule, achieved in 1947."},
+
+  /* ── WORLD SPORTS (NON-NIGERIA) ── */
+  {q:"Which country hosted the first-ever FIFA World Cup in 1930?",o:["Brazil","Uruguay","Argentina","Italy"],a:1,t:"World Sports",d:"medium",e:"Uruguay hosted and won the first FIFA World Cup in 1930."},
+  {q:"In which sport is the 'Grand Slam' made up of the Australian Open, French Open, Wimbledon, and US Open?",o:["Golf","Tennis","Cricket","Badminton"],a:1,t:"World Sports",d:"easy",e:"Tennis's Grand Slam consists of the Australian Open, French Open (Roland Garros), Wimbledon, and the US Open."},
+  {q:"Which country has won the most Cricket World Cups?",o:["India","Australia","England","West Indies"],a:1,t:"World Sports",d:"medium",e:"Australia has won the most Cricket World Cup titles, with six championships."},
+  {q:"Lionel Messi, widely regarded as one of football's greatest players, is from which country?",o:["Brazil","Portugal","Argentina","Spain"],a:2,t:"World Sports",d:"easy",e:"Lionel Messi is from Argentina. He led Argentina to win the FIFA World Cup in 2022."},
+  {q:"The NBA (basketball) is the premier professional league of which country?",o:["Canada","United Kingdom","United States","Australia"],a:2,t:"World Sports",d:"easy",e:"The NBA (National Basketball Association) is the United States' top professional basketball league, though it includes a Canadian team (Toronto Raptors)."},
+  {q:"Which country has won the most Summer Olympic gold medals in history?",o:["Soviet Union","China","United States","United Kingdom"],a:2,t:"World Sports",d:"medium",e:"The United States has won the most Summer Olympic gold medals in history, by a significant margin."},
+  {q:"In Formula 1 racing, which driver holds the record for the most World Championships (tied)?",o:["Michael Schumacher and Lewis Hamilton (7 each)","Ayrton Senna","Sebastian Vettel","Max Verstappen"],a:0,t:"World Sports",d:"hard",e:"Michael Schumacher and Lewis Hamilton are tied for the most Formula 1 World Championship titles, with 7 each."},
+
+  /* ── MIXED GLOBAL TRIVIA ── */
+  {q:"Which company created the iPhone?",o:["Samsung","Google","Apple","Microsoft"],a:2,t:"Founders & Inventors",d:"easy",e:"Apple Inc., under Steve Jobs, launched the first iPhone in 2007, revolutionising the smartphone industry."},
+  {q:"The Statue of Liberty was a gift to the United States from which country?",o:["United Kingdom","France","Spain","Italy"],a:1,t:"World Culture",d:"easy",e:"The Statue of Liberty was a gift from France to the United States, dedicated in 1886 to commemorate the centennial of American independence and Franco-American friendship."},
+  {q:"What is the world's most spoken language by total speakers (including non-native speakers)?",o:["Mandarin Chinese","English","Spanish","Hindi"],a:1,t:"World Culture",d:"medium",e:"English is the most spoken language globally when counting both native and non-native speakers, due to its role as a global lingua franca."},
+  {q:"Which country is the world's largest producer of coffee?",o:["Colombia","Vietnam","Brazil","Ethiopia"],a:2,t:"World Geography",d:"medium",e:"Brazil is the world's largest producer of coffee, accounting for roughly a third of global production."},
+  {q:"The 'Big Ben' clock tower is located in which city?",o:["Paris","London","Edinburgh","Dublin"],a:1,t:"World Culture",d:"easy",e:"Big Ben is located in London, part of the Houses of Parliament (Palace of Westminster). Technically, 'Big Ben' refers to the bell, while the tower is called the Elizabeth Tower."},
+  {q:"Which country is famous for the ancient site of Machu Picchu?",o:["Mexico","Peru","Chile","Bolivia"],a:1,t:"World Geography",d:"medium",e:"Machu Picchu, an Incan citadel, is located in Peru, high in the Andes Mountains."},
+  {q:"Which country invented the game of football's earliest codified rules (modern association football)?",o:["Brazil","England","Italy","Spain"],a:1,t:"World Sports",d:"medium",e:"Modern association football's rules were first codified in England in 1863 with the founding of the Football Association."},
+  {q:"What is the capital city of Russia?",o:["St. Petersburg","Moscow","Kyiv","Minsk"],a:1,t:"World Geography",d:"easy",e:"Moscow is the capital and largest city of Russia."}
+];
+const THEMES={
+  nigeria:{accent:'#008751',accentDark:'#005c37',accentLight:'#d4f0e4',accentTextDark:'#004d2e',name:'Nigeria CBT',emoji:'🇳🇬'},
+  global:{accent:'#1d4ed8',accentDark:'#1e40af',accentLight:'#dbeafe',accentTextDark:'#1e3a8a',name:'Global Knowledge CBT',emoji:'🌍'}
+};
+
+let section=null,TOTAL=0,qs=[],cur=0,ans=[],score=0;
 let timerOn=false,totalSecs=0,secsLeft=0,timerInterval=null,customMins=60;
+
+function applyTheme(key){
+  const t=THEMES[key];
+  document.documentElement.style.setProperty('--accent',t.accent);
+  const app=document.getElementById('app');
+  app.style.borderTop=`3px solid ${t.accent}`;
+}
 
 function fmt(s){const m=Math.floor(s/60),sec=s%60;return`${m}:${sec<10?'0':''}${sec}`;}
 
+function showPicker(){
+  clearInterval(timerInterval);
+  section=null;
+  document.getElementById('hdr-title').textContent='📚 CBT Practice Hub';
+  document.getElementById('hdr-sub').textContent='Choose a section to begin';
+  document.getElementById('app').style.borderTop='3px solid var(--color-border-tertiary)';
+  const main=document.getElementById('main');
+  main.innerHTML=`
+    <div class="pick-grid">
+      <button class="pick-card" onclick="selectSection('nigeria')">
+        <span class="pick-emoji">🇳🇬</span>
+        <div class="pick-text">
+          <h4>Nigeria CBT</h4>
+          <p>${NIGERIA_BANK.length} questions · Politics, States, History, Sports, Music, Agencies, Ministers, Sanya & Scars</p>
+        </div>
+        <span class="pick-arrow">→</span>
+      </button>
+      <button class="pick-card" onclick="selectSection('global')">
+        <span class="pick-emoji">🌍</span>
+        <div class="pick-text">
+          <h4>Global Knowledge CBT</h4>
+          <p>${GLOBAL_BANK.length} questions · Flags, World Firsts, Founders, Geography, Records & Culture</p>
+        </div>
+        <span class="pick-arrow">→</span>
+      </button>
+    </div>
+  `;
+}
+
+function selectSection(key){
+  section=key;
+  const t=THEMES[key];
+  TOTAL=key==='nigeria'?NIGERIA_BANK.length:GLOBAL_BANK.length;
+  document.getElementById('hdr-title').textContent=`${t.emoji} ${t.name}`;
+  document.getElementById('hdr-sub').textContent=`${TOTAL} questions · Tap below to set your timer`;
+  applyTheme(key);
+  startSetup();
+}
+
 function startSetup(){
   clearInterval(timerInterval);
+  const t=THEMES[section];
   const main=document.getElementById('main');
   const presets=[15,30,45,60,90];
-  const btns=presets.map(m=>`<button class="dur-btn${customMins===m?' sel':''}" onclick="selDur(${m})">${m} min</button>`).join('');
+  const btns=presets.map(m=>`<button class="dur-btn${customMins===m?' sel':''}" data-m="${m}" onclick="selDur(${m},this)">${m} min</button>`).join('');
   main.innerHTML=`
     <div class="setup">
       <h3>⏱ Set your timer</h3>
-      <p>Choose how long you want for all 100 questions, or enter a custom time. You can also turn the timer off.</p>
-      <div class="dur-grid">${btns}<button class="dur-btn${!timerOn&&customMins===0?' sel':''}" onclick="selDur(0)">No timer</button></div>
+      <p>Choose how long you want for all ${TOTAL} questions, or enter a custom time. You can also turn the timer off.</p>
+      <div class="dur-grid">${btns}<button class="dur-btn${!timerOn&&customMins===0?' sel':''}" data-m="0" onclick="selDur(0,this)">No timer</button></div>
       <div class="custom-row">
-        Custom: <input type="number" id="cmin" min="1" max="300" value="${customMins||60}" oninput="selDur(+this.value)"> minutes
+        Custom: <input type="number" id="cmin" min="1" max="300" value="${customMins||60}" oninput="selDur(+this.value,null)"> minutes
       </div>
-      <button class="btn btnp" onclick="startExam()">Start Exam →</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" onclick="showPicker()">← Back to sections</button>
+        <button class="btn btnp" style="background:${t.accent};border-color:${t.accent}" onclick="startExam()">Start Exam →</button>
+      </div>
     </div>`;
+  styleSelected();
 }
 
-function selDur(m){
+function styleSelected(){
+  const t=THEMES[section];
+  document.querySelectorAll('.dur-btn').forEach(b=>{
+    if(b.classList.contains('sel')){b.style.borderColor=t.accent;b.style.background=t.accentLight;b.style.color=t.accentTextDark;}
+    else{b.style.borderColor='';b.style.background='';b.style.color='';}
+  });
+}
+
+function selDur(m,el){
   customMins=m;
   document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('sel'));
-  event.target.classList.add('sel');
+  if(el)el.classList.add('sel');
+  else{
+    const match=[...document.querySelectorAll('.dur-btn')].find(b=>+b.dataset.m===m);
+    if(match)match.classList.add('sel');
+  }
   const ci=document.getElementById('cmin');
   if(ci)ci.value=m||60;
+  styleSelected();
 }
 
 function startExam(){
+  const t=THEMES[section];
   timerOn=customMins>0;
   totalSecs=customMins*60;
   secsLeft=totalSecs;
-  qs=[...BANK].sort(()=>Math.random()-0.5);
+  const src=section==='nigeria'?NIGERIA_BANK:GLOBAL_BANK;
+  qs=[...src].sort(()=>Math.random()-0.5);
   ans=new Array(TOTAL).fill(null);
   cur=0;score=0;
   clearInterval(timerInterval);
@@ -345,28 +535,32 @@ function startExam(){
   render();
 }
 
-function init(){startSetup();}
-
 function cls(i){
+  const t=THEMES[section];
   if(i===cur)return'nb cur';
   if(ans[i]===null)return'nb';
   return ans[i]===qs[i].a?'nb ok':'nb bad';
 }
 
 function render(){
+  const t=THEMES[section];
   const main=document.getElementById('main');
   const done=ans.filter(x=>x!==null).length;
   const pct=Math.round((done/TOTAL)*100);
   const q=qs[cur];
   const answered=ans[cur]!==null;
-  const nav=qs.map((_,i)=>`<button class="${cls(i)}" onclick="goTo(${i})">${i+1}</button>`).join('');
+  const nav=qs.map((_,i)=>{
+    const c=cls(i);
+    const style=i===cur?`style="border-color:${t.accent};color:${t.accentTextDark};background:${t.accentLight}"`:'';
+    return`<button class="${c}" ${style} onclick="goTo(${i})">${i+1}</button>`;
+  }).join('');
   const letters=['A','B','C','D'];
   const opts=q.o.map((op,i)=>{
     let c='';
     if(answered){c=i===q.a?'correct':i===ans[cur]?'wrong':'';}
     return`<button class="opt ${c}" onclick="pick(${i})" ${answered?'disabled':''}>${letters[i]}. ${op}</button>`;
   }).join('');
-  const timerHTML=timerOn?`<div class="tmr"><span>⏱</span><span id="tmr-val" class="tmr-val">${fmt(secsLeft)}</span><div class="tmr-bar"><div id="tmr-fill" class="tmr-fill" style="width:${secsLeft/totalSecs*100}%"></div></div></div>`:'';
+  const timerHTML=timerOn?`<div class="tmr"><span>⏱</span><span id="tmr-val" class="tmr-val">${fmt(secsLeft)}</span><div class="tmr-bar"><div id="tmr-fill" class="tmr-fill" style="width:${secsLeft/totalSecs*100}%;background:${t.accent}"></div></div></div>`:'';
 
   main.innerHTML=`
     ${timerHTML}
@@ -374,11 +568,11 @@ function render(){
       <div class="pill">Q <span>${cur+1}/${TOTAL}</span></div>
       <div class="pill">Score <span>${score}</span></div>
       <div class="pill">Done <span>${done}/${TOTAL}</span></div>
-      <button class="btn" style="font-size:11px;padding:3px 9px;margin-left:auto" onclick="init()">⚙ Timer</button>
+      <button class="btn" style="font-size:11px;padding:3px 9px;margin-left:auto" onclick="showPicker()">⟲ Switch section</button>
     </div>
     <div class="prog-wrap">
       <div class="prog-label"><span>Progress</span><span>${pct}%</span></div>
-      <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${t.accent}"></div></div>
     </div>
     <div class="nav-grid">${nav}</div>
     <div class="qcard">
@@ -386,14 +580,14 @@ function render(){
       <span class="badge topic">${q.t}</span>
       <p class="qt">${q.q}</p>
       <div class="opts">${opts}</div>
-      ${answered?`<div class="exp">💡 ${q.e}</div>`:''}
+      ${answered?`<div class="exp" style="border-left-color:${t.accent}">💡 ${q.e}</div>`:''}
     </div>
     <div class="nav-row">
       <div>${cur>0?`<button class="btn" onclick="goTo(${cur-1})">← Prev</button>`:''}</div>
       <div style="display:flex;gap:8px">
-        ${answered&&cur<TOTAL-1?`<button class="btn btnp" onclick="goTo(${cur+1})">Next →</button>`:''}
-        ${answered&&cur===TOTAL-1?`<button class="btn btnp" onclick="showRes(false)">See Results</button>`:''}
-        ${done===TOTAL&&!answered?`<button class="btn btnp" onclick="showRes(false)">See Results</button>`:''}
+        ${answered&&cur<TOTAL-1?`<button class="btn btnp" style="background:${t.accent};border-color:${t.accent}" onclick="goTo(${cur+1})">Next →</button>`:''}
+        ${answered&&cur===TOTAL-1?`<button class="btn btnp" style="background:${t.accent};border-color:${t.accent}" onclick="showRes(false)">See Results</button>`:''}
+        ${done===TOTAL&&!answered?`<button class="btn btnp" style="background:${t.accent};border-color:${t.accent}" onclick="showRes(false)">See Results</button>`:''}
       </div>
     </div>
   `;
@@ -410,6 +604,7 @@ function goTo(i){cur=i;render();}
 
 function showRes(timeout){
   clearInterval(timerInterval);
+  const t=THEMES[section];
   const pct=Math.round((score/TOTAL)*100);
   const tm={};
   qs.forEach((q,i)=>{
@@ -418,7 +613,7 @@ function showRes(timeout){
     if(ans[i]===q.a)tm[q.t].c++;
   });
   let grade,gc;
-  if(pct>=80){grade='Excellent! 🇳🇬';gc='#008751';}
+  if(pct>=80){grade=`Excellent! ${t.emoji}`;gc=t.accent;}
   else if(pct>=60){grade='Good job!';gc='#BA7517';}
   else if(pct>=40){grade='Keep practicing';gc='#BA7517';}
   else{grade='Needs improvement';gc='#E24B4A';}
@@ -436,19 +631,20 @@ function showRes(timeout){
       </div>
       <div class="tbd">
         <p style="font-size:13px;font-weight:500;margin-bottom:10px">Performance by topic</p>
-        ${Object.entries(tm).map(([t,v])=>{
+        ${Object.entries(tm).map(([tp,v])=>{
           const p=Math.round((v.c/v.n)*100);
           const tc=p>=70?'#3B6D11':p>=40?'#854F0B':'#A32D2D';
-          return`<div class="tr"><span style="color:var(--color-text-secondary)">${t}</span><span style="font-weight:500;color:${tc}">${v.c}/${v.n} (${p}%)</span></div>`;
+          return`<div class="tr"><span style="color:var(--color-text-secondary)">${tp}</span><span style="font-weight:500;color:${tc}">${v.c}/${v.n} (${p}%)</span></div>`;
         }).join('')}
       </div>
       <div style="margin-top:1.5rem;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btnp" onclick="init()">Try Again ↺</button>
-        <button class="btn" onclick="sendPrompt('I just finished the Nigeria CBT (200 questions). Give me targeted study tips on my weakest topics.')">Get study tips ↗</button>
+        <button class="btn btnp" style="background:${t.accent};border-color:${t.accent}" onclick="startSetup()">Try Again ↺</button>
+        <button class="btn" onclick="showPicker()">⟲ Switch section</button>
+        <button class="btn" onclick="sendPrompt('I just finished the ${t.name} (${TOTAL} questions). Give me targeted study tips on my weakest topics.')">Get study tips ↗</button>
       </div>
     </div>
   `;
 }
 
-init();
+showPicker();
 </script>
