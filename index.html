@@ -1,79 +1,284 @@
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@600&display=swap" rel="stylesheet">
 <style>
+/* ── reset & base ── */
 *{box-sizing:border-box;margin:0;padding:0}
-#app{padding:1rem 0}
-.hdr{padding-bottom:.75rem;border-bottom:1px solid var(--color-border-tertiary);margin-bottom:1rem}
-.hdr h2{font-size:18px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px;display:flex;align-items:center;gap:6px}
-.hdr p{font-size:14px;color:var(--color-text-secondary);margin-bottom:1.2rem}
-.meta-bar{display:flex;gap:10px;margin-bottom:1rem;flex-wrap:wrap}
-.pill{font-size:12px;padding:4px 10px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary);background:var(--color-background-secondary)}
-.pill span{font-weight:500;color:var(--color-text-primary)}
-.prog-wrap{margin-bottom:1rem}
-.prog-label{display:flex;justify-content:space-between;font-size:13px;color:var(--color-text-secondary);margin-bottom:6px}
-.prog-bar{height:4px;background:var(--color-background-secondary);border-radius:2px;overflow:hidden;border:0.5px solid var(--color-border-tertiary)}
-.prog-fill{height:100%;border-radius:2px;transition:width 0.3s}
+#app{padding:1rem 0;--accent:#008751;--accent-light:#d4f0e4;--accent-dark:#005c37;--accent-text:#004d2e}
+
+/* ── hub header ── */
+.hub-header{margin-bottom:1.5rem}
+.hub-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:6px}
+.hub-title{font-family:'Lora',Georgia,serif;font-size:22px;font-weight:600;color:var(--color-text-primary);line-height:1.3;margin-bottom:4px}
+.hub-sub{font-family:'Inter',sans-serif;font-size:13px;color:var(--color-text-secondary)}
+
+/* ── section picker cards ── */
+.pick-grid{display:flex;flex-direction:column;gap:10px;margin-top:.25rem}
+.pick-card{
+  display:flex;align-items:center;gap:0;
+  border:1px solid var(--color-border-tertiary);
+  border-radius:14px;
+  background:var(--color-background-primary);
+  cursor:pointer;text-align:left;
+  font-family:'Inter',sans-serif;
+  overflow:hidden;
+  transition:box-shadow .2s,transform .15s;
+  position:relative;
+}
+.pick-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.1);transform:translateY(-2px)}
+.pick-card-bar{width:5px;align-self:stretch;flex-shrink:0;border-radius:0}
+.pick-card-inner{display:flex;align-items:center;gap:14px;padding:1rem 1.1rem;flex:1}
+.pick-icon{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+}
+.pick-text{flex:1}
+.pick-text h4{font-size:14px;font-weight:600;color:var(--color-text-primary);margin-bottom:2px;line-height:1.3}
+.pick-text p{font-size:12px;color:var(--color-text-secondary);line-height:1.4}
+.pick-count{font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px;margin-right:10px;flex-shrink:0}
+.pick-arrow{color:var(--color-text-secondary);font-size:16px;flex-shrink:0;margin-right:14px}
+
+/* ── meta bar / pills ── */
+.meta-bar{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
+.pill{
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:500;
+  padding:4px 10px;border-radius:20px;
+  border:1px solid var(--color-border-tertiary);
+  color:var(--color-text-secondary);
+  background:var(--color-background-secondary);
+}
+.pill span{font-weight:700;color:var(--color-text-primary)}
+
+/* ── progress ── */
+.prog-wrap{margin-bottom:1.1rem}
+.prog-label{display:flex;justify-content:space-between;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+.prog-bar{height:6px;background:var(--color-background-secondary);border-radius:99px;overflow:visible;position:relative}
+.prog-fill{
+  height:100%;border-radius:99px;
+  transition:width .4s cubic-bezier(.4,0,.2,1);
+  position:relative;
+}
+.prog-fill::after{
+  content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);
+  width:10px;height:10px;border-radius:50%;
+  background:inherit;
+  box-shadow:0 0 0 3px var(--color-background-primary),0 0 0 4px currentColor;
+  transition:opacity .3s;
+}
+
+/* ── nav number grid ── */
 .nav-grid{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:1rem}
-.nb{width:26px;height:26px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-secondary);font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--font-sans)}
-.nb.cur{font-weight:500}
-.nb.ok{background:#EAF3DE;border-color:#639922;color:#3B6D11}
-.nb.bad{background:#FCEBEB;border-color:#E24B4A;color:#A32D2D}
-.qcard{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem;transition:box-shadow .2s}
-.badge{display:inline-block;font-size:11px;padding:3px 8px;border-radius:var(--border-radius-md);margin-bottom:10px;font-weight:500}
-.easy{background:#EAF3DE;color:#3B6D11}
-.medium{background:#FAEEDA;color:#854F0B}
-.hard{background:#FCEBEB;color:#A32D2D}
-.topic{background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary);margin-left:6px}
-.qt{font-size:15px;color:var(--color-text-primary);line-height:1.6;margin-bottom:1rem;font-weight:500}
-.opts{display:flex;flex-direction:column;gap:8px}
-.opt{text-align:left;padding:10px 14px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-size:14px;cursor:pointer;transition:background .15s,border-color .15s,transform .1s;line-height:1.5;font-family:var(--font-sans)}
-.opt:hover:not(:disabled){background:var(--color-background-secondary);transform:translateX(2px)}
-.opt.correct{background:#EAF3DE;border-color:#008751;color:#3B6D11}
-.opt.wrong{background:#FCEBEB;border-color:#E24B4A;color:#A32D2D}
+.nb{
+  width:28px;height:28px;border-radius:8px;
+  border:1px solid var(--color-border-tertiary);
+  background:var(--color-background-secondary);
+  color:var(--color-text-secondary);
+  font-family:'Inter',sans-serif;font-size:10px;font-weight:500;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .12s,border-color .12s,transform .1s;
+}
+.nb:hover{transform:scale(1.1)}
+.nb.cur{font-weight:700}
+.nb.ok{background:#dcf5e7;border-color:#22c55e;color:#15803d}
+.nb.bad{background:#fee2e2;border-color:#f87171;color:#b91c1c}
+
+/* ── question card ── */
+.qcard{
+  background:var(--color-background-primary);
+  border:1px solid var(--color-border-tertiary);
+  border-radius:16px;
+  padding:1.4rem;
+  margin-bottom:1rem;
+  transition:box-shadow .2s;
+  border-top:3px solid var(--accent);
+}
+
+/* ── badges ── */
+.badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:'Inter',sans-serif;font-size:10px;font-weight:700;
+  padding:3px 9px;border-radius:20px;margin-bottom:12px;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+.easy{background:#dcf5e7;color:#15803d}
+.medium{background:#fef3c7;color:#92400e}
+.hard{background:#fee2e2;color:#b91c1c}
+.topic{
+  background:var(--color-background-secondary);
+  color:var(--color-text-secondary);
+  border:1px solid var(--color-border-tertiary);
+  margin-left:5px;text-transform:none;font-weight:500;letter-spacing:0;
+}
+
+/* ── question text ── */
+.qt{
+  font-family:'Lora',Georgia,serif;
+  font-size:16px;font-weight:600;
+  color:var(--color-text-primary);
+  line-height:1.65;margin-bottom:1.1rem;
+}
+
+/* ── answer options ── */
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{
+  text-align:left;
+  padding:0;
+  border:1px solid var(--color-border-tertiary);
+  border-radius:10px;
+  background:var(--color-background-primary);
+  color:var(--color-text-primary);
+  font-family:'Inter',sans-serif;font-size:13.5px;
+  cursor:pointer;
+  transition:border-color .15s,background .15s,box-shadow .15s;
+  line-height:1.5;
+  display:flex;align-items:stretch;overflow:hidden;
+}
+.opt:hover:not(:disabled){
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-light);
+}
+.opt-letter{
+  width:38px;min-width:38px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;
+  background:var(--color-background-secondary);
+  border-right:1px solid var(--color-border-tertiary);
+  color:var(--color-text-secondary);
+  flex-shrink:0;
+  transition:background .15s,color .15s;
+}
+.opt:hover:not(:disabled) .opt-letter{background:var(--accent-light);color:var(--accent-text)}
+.opt-text{padding:11px 13px;flex:1}
+.opt.correct{background:#f0fdf4;border-color:#22c55e}
+.opt.correct .opt-letter{background:#dcfce7;color:#15803d;border-color:#86efac}
+.opt.wrong{background:#fff5f5;border-color:#f87171}
+.opt.wrong .opt-letter{background:#fee2e2;color:#b91c1c;border-color:#fca5a5}
 .opt:disabled{cursor:default}
-.exp{margin-top:12px;padding:10px 14px;background:var(--color-background-secondary);border-radius:0 var(--border-radius-md) var(--border-radius-md) 0;font-size:13px;color:var(--color-text-secondary);line-height:1.6;border-left:3px solid}
+
+/* ── explanation ── */
+.exp{
+  margin-top:14px;
+  padding:12px 14px 12px 16px;
+  background:var(--color-background-secondary);
+  border-radius:10px;
+  font-family:'Inter',sans-serif;font-size:13px;
+  color:var(--color-text-secondary);
+  line-height:1.65;
+  border-left:4px solid var(--accent);
+  position:relative;
+}
+
+/* ── nav row buttons ── */
 .nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;flex-wrap:wrap;gap:8px}
-.btn{padding:9px 18px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-primary);font-size:14px;cursor:pointer;font-family:var(--font-sans)}
+.btn{
+  padding:9px 18px;border-radius:10px;
+  border:1px solid var(--color-border-secondary);
+  background:transparent;color:var(--color-text-primary);
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:500;
+  cursor:pointer;transition:background .15s;
+}
 .btn:hover{background:var(--color-background-secondary)}
-.btnp{color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
-.res{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:2rem;text-align:center}
-.sbig{font-size:52px;font-weight:500;line-height:1;margin-bottom:6px}
-.ssub{font-size:15px;color:var(--color-text-secondary);margin-bottom:1.5rem}
-.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
-.sc{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px}
-.sl{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px}
-.sv{font-size:20px;font-weight:500}
-.tbd{text-align:left;border-top:0.5px solid var(--color-border-tertiary);padding-top:1rem}
-.tr{display:flex;justify-content:space-between;padding:6px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px}
-.tr:last-child{border-bottom:none}
-.tmr{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-text-secondary);margin-bottom:1rem}
-.tmr-val{font-size:14px;font-weight:600;color:var(--color-text-primary);min-width:42px}
-.tmr-val.warn{color:#E24B4A}
-.tmr-bar{flex:1;height:4px;background:var(--color-background-secondary);border-radius:2px;overflow:hidden}
-.tmr-fill{height:100%;border-radius:2px;transition:width 1s linear}
-.tmr-fill.warn{background:#E24B4A}
-.setup{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem}
-.setup h3{font-size:15px;font-weight:500;margin-bottom:4px}
-.setup p{font-size:13px;color:var(--color-text-secondary);margin-bottom:1.2rem}
+.btnp{
+  color:#fff;
+  border:none;
+  box-shadow:0 2px 8px rgba(0,0,0,.18);
+  font-weight:600;
+}
+.btnp:hover{opacity:.92;background:inherit}
+
+/* ── timer strip ── */
+.tmr{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 14px;
+  background:var(--color-background-secondary);
+  border:1px solid var(--color-border-tertiary);
+  border-radius:10px;
+  margin-bottom:1rem;
+}
+.tmr-val{
+  font-family:'Inter',sans-serif;font-size:15px;font-weight:700;
+  color:var(--color-text-primary);min-width:46px;
+  font-variant-numeric:tabular-nums;
+}
+.tmr-val.warn{color:#ef4444}
+.tmr-bar{flex:1;height:5px;background:var(--color-border-tertiary);border-radius:99px;overflow:hidden}
+.tmr-fill{height:100%;border-radius:99px;transition:width 1s linear}
+.tmr-fill.warn{background:#ef4444}
+.tmr-icon{font-size:14px;flex-shrink:0}
+
+/* ── setup screen ── */
+.setup{
+  background:var(--color-background-primary);
+  border:1px solid var(--color-border-tertiary);
+  border-radius:16px;padding:1.5rem;
+}
+.setup-title{font-family:'Lora',Georgia,serif;font-size:18px;font-weight:600;color:var(--color-text-primary);margin-bottom:4px}
+.setup p{font-family:'Inter',sans-serif;font-size:13px;color:var(--color-text-secondary);margin-bottom:1.2rem;line-height:1.5}
 .dur-grid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.2rem}
-.dur-btn{padding:7px 14px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-primary);font-size:13px;cursor:pointer;font-family:var(--font-sans)}
-.dur-btn.sel{font-weight:500}
-.custom-row{display:flex;align-items:center;gap:8px;margin-bottom:1.4rem;font-size:13px;color:var(--color-text-secondary)}
-.custom-row input{width:60px;padding:6px 8px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-size:13px;font-family:var(--font-sans)}
-/* section picker */
-.pick-grid{display:flex;flex-direction:column;gap:12px;margin-top:.5rem}
-.pick-card{display:flex;align-items:center;gap:14px;padding:1.1rem 1.2rem;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);background:var(--color-background-primary);cursor:pointer;text-align:left;font-family:var(--font-sans);transition:box-shadow .2s,transform .1s}
-.pick-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
-.pick-emoji{font-size:28px;flex-shrink:0}
-.pick-text h4{font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
-.pick-text p{font-size:13px;color:var(--color-text-secondary)}
-.pick-arrow{margin-left:auto;color:var(--color-text-secondary);font-size:18px}
+.dur-btn{
+  padding:7px 15px;border-radius:20px;
+  border:1px solid var(--color-border-tertiary);
+  background:var(--color-background-secondary);
+  color:var(--color-text-primary);
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:500;
+  cursor:pointer;transition:all .15s;
+}
+.dur-btn:hover{border-color:var(--accent)}
+.dur-btn.sel{font-weight:700}
+.custom-row{
+  display:flex;align-items:center;gap:8px;margin-bottom:1.5rem;
+  font-family:'Inter',sans-serif;font-size:13px;color:var(--color-text-secondary);
+}
+.custom-row input{
+  width:64px;padding:7px 10px;
+  border:1px solid var(--color-border-tertiary);
+  border-radius:8px;
+  background:var(--color-background-primary);
+  color:var(--color-text-primary);
+  font-family:'Inter',sans-serif;font-size:13px;
+}
+.setup-btns{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ── results screen ── */
+.res{
+  background:var(--color-background-primary);
+  border:1px solid var(--color-border-tertiary);
+  border-radius:16px;padding:2rem 1.5rem;text-align:center;
+}
+.res-ring-wrap{display:flex;justify-content:center;margin-bottom:1.2rem}
+.res-ring{position:relative;width:110px;height:110px}
+.res-ring svg{transform:rotate(-90deg)}
+.res-ring-label{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.res-pct{font-family:'Lora',Georgia,serif;font-size:26px;font-weight:600;line-height:1}
+.res-of{font-family:'Inter',sans-serif;font-size:10px;color:var(--color-text-secondary);margin-top:2px;font-weight:500}
+.ssub{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:var(--color-text-primary);margin-bottom:1.2rem}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1.4rem}
+.sc{
+  background:var(--color-background-secondary);
+  border-radius:10px;padding:12px 8px;
+  border:1px solid var(--color-border-tertiary);
+}
+.sl{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:4px}
+.sv{font-family:'Lora',Georgia,serif;font-size:22px;font-weight:600}
+.tbd{text-align:left;border-top:1px solid var(--color-border-tertiary);padding-top:1rem;margin-top:.5rem}
+.tbd-title{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-secondary);margin-bottom:10px}
+.tr{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--color-border-tertiary);font-family:'Inter',sans-serif;font-size:12.5px}
+.tr:last-child{border-bottom:none}
+.tr-bar{height:3px;border-radius:99px;margin-top:3px;transition:width .4s}
+.tr-left{flex:1;padding-right:10px}
+.tr-right{font-weight:700;font-size:12px;flex-shrink:0}
+.res-btns{margin-top:1.5rem;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 </style>
 
 <div id="app">
-  <div class="hdr">
-    <h2 id="hdr-title">📚 CBT Practice Hub</h2>
-    <p id="hdr-sub">Choose a section to begin</p>
+  <div class="hub-header">
+    <div class="hub-eyebrow">CBT Practice Hub</div>
+    <div class="hub-title" id="hdr-title">Quiz Sections</div>
+    <div class="hub-sub" id="hdr-sub">Choose a section to begin your practice</div>
   </div>
-  <div id="main"><p style="color:var(--color-text-secondary);font-size:14px;padding:2rem 0">Loading...</p></div>
+  <div id="main"><p style="color:var(--color-text-secondary);font-family:'Inter',sans-serif;font-size:14px;padding:2rem 0">Loading...</p></div>
 </div>
 
 <script>
@@ -587,9 +792,125 @@ const GLOBAL_BANK=[
   {q:"What is the name of the international agreement aimed at reducing greenhouse gas emissions signed in 2015?",o:["Kyoto Protocol","Montreal Protocol","Paris Agreement","Copenhagen Accord"],a:2,t:"World Organisations",d:"medium",e:"The Paris Agreement was adopted in December 2015 at COP21. It aims to limit global warming to well below 2°C above pre-industrial levels."},
   {q:"What is the name of the layer of the Earth's atmosphere that protects us from harmful UV radiation?",o:["Troposphere","Stratosphere — ozone layer","Mesosphere","Thermosphere"],a:1,t:"Science & Discovery",d:"medium",e:"The ozone layer sits in the stratosphere, about 15–35 km above Earth's surface. It absorbs most of the Sun's ultraviolet radiation, protecting life on Earth."}
 ];
+
+const FIRSTS_BANK=[
+  /* ── NIGERIA FIRSTS — LEGAL & POLITICAL ── */
+  {q:"Who was the first indigenous Nigerian lawyer?",o:["Herbert Macaulay","Sapara Ode","Christopher Alexander Sapara Williams","Nnamdi Azikiwe"],a:2,t:"Nigeria Firsts – Legal & Political",d:"medium",e:"Christopher Alexander Sapara Williams was called to the English bar on November 17, 1879 — the first indigenous Nigerian lawyer and also the first Black man called to the English bar. He studied at the Inner Temple, London."},
+  {q:"Who was the first female lawyer in Nigeria?",o:["Funmilayo Ransome-Kuti","Stella Thomas","Folake Solanke","Modupe Omo-Eboh"],a:2,t:"Nigeria Firsts – Legal & Political",d:"hard",e:"Folake Solanke is widely credited as Nigeria's first female lawyer, graduating from Gray's Inn, London in 1962. She also became the first female Senior Advocate of Nigeria (SAN)."},
+  {q:"Who was Nigeria's first female Senior Advocate of Nigeria (SAN)?",o:["Priscilla Kuye","Modupe Omo-Eboh","Folake Solanke","Stella Thomas"],a:2,t:"Nigeria Firsts – Legal & Political",d:"hard",e:"Chief Folake Solanke (born 1932) was the first female Senior Advocate of Nigeria (SAN) and the first Nigerian female lawyer to wear the silk gown as Senior Counsel."},
+  {q:"Who was Nigeria's first female judge?",o:["Stella Thomas","Modupe Omo-Eboh","Aloma Mukhtar","Priscilla Kuye"],a:1,t:"Nigeria Firsts – Legal & Political",d:"hard",e:"Modupe Omo-Eboh (1922–2002) was Nigeria's first female judge. She studied law in London and returned to serve the Nigerian judiciary."},
+  {q:"Who was Nigeria's first female magistrate?",o:["Modupe Omo-Eboh","Stella Thomas","Folake Solanke","Hairat Balogun"],a:1,t:"Nigeria Firsts – Legal & Political",d:"hard",e:"Stella Thomas (1906–1974) received a law degree from Oxford University and in 1943 became the first female magistrate in Nigeria."},
+  {q:"Who was the first female president of the Nigerian Bar Association (NBA)?",o:["Folake Solanke","Modupe Omo-Eboh","Stella Thomas","Priscilla Kuye"],a:3,t:"Nigeria Firsts – Legal & Political",d:"hard",e:"Dame Priscilla Olabori Kuye served as the first (and so far only) female president of the Nigerian Bar Association (NBA) from 1991 to 1992."},
+  {q:"Who was Nigeria's first female Chief Justice?",o:["Aloma Marian Mukhtar","Priscilla Kuye","Folake Solanke","Mary Odili"],a:0,t:"Nigeria Firsts – Legal & Political",d:"medium",e:"Justice Aloma Marian Mukhtar was appointed as Nigeria's first female Chief Justice of Nigeria (CJN) in 2012 by President Goodluck Jonathan, a landmark in Nigerian legal history."},
+  {q:"Who is Nigeria's current Chief Justice (as of 2024–2025)?",o:["Tanko Muhammad","Olukayode Ariwoola","Kudirat Kekere-Ekun","Mary Odili"],a:2,t:"Nigeria Firsts – Legal & Political",d:"medium",e:"Justice Kudirat Kekere-Ekun was sworn in as the 23rd Chief Justice of Nigeria on August 22, 2024, by President Bola Tinubu. She is also the second female CJN."},
+  {q:"Who was Nigeria's first military Head of State?",o:["Yakubu Gowon","Chukwuma Nzeogwu","Johnson Aguiyi-Ironsi","Murtala Muhammed"],a:2,t:"Nigeria Firsts – Legal & Political",d:"medium",e:"Major General Johnson Aguiyi-Ironsi became Nigeria's first military Head of State after the January 1966 coup. He was killed in the July 1966 counter-coup."},
+  {q:"Who was the first woman to hold a ministerial position in Nigeria?",o:["Funmilayo Ransome-Kuti","Janet Mokelu","Tinuola Dedeke","Florence Ita-Giwa"],a:0,t:"Nigeria Firsts – Legal & Political",d:"hard",e:"Funmilayo Ransome-Kuti was the first woman to hold a ministerial appointment in Nigeria, appointed to the Western Region cabinet in 1955."},
+
+  /* ── NIGERIA FIRSTS — WOMEN PIONEERS ── */
+  {q:"Who was the first Nigerian woman to drive a car?",o:["Efunroye Tinubu","Funmilayo Ransome-Kuti","Margaret Ekpo","Flora Azikiwe"],a:1,t:"Nigeria Firsts – Women",d:"medium",e:"Funmilayo Ransome-Kuti is historically recognised as the first Nigerian woman to drive a car, doing so in Abeokuta in the 1930s. She is also mother of Fela Kuti and a renowned women's rights activist."},
+  {q:"Who was the first woman to own/buy a car in Nigeria?",o:["Funmilayo Ransome-Kuti","Madam Efunroye Tinubu","Margaret Ekpo","Flora Azikiwe"],a:1,t:"Nigeria Firsts – Women",d:"hard",e:"Madam Efunroye Tinubu (a prominent 19th-century Lagos businesswoman) is often credited as the first woman to buy/own a car in Nigeria — distinct from Funmilayo Ransome-Kuti who was the first to drive one herself."},
+  {q:"Who was the first female chartered accountant in Africa?",o:["Ngozi Okonjo-Iweala","Toyin Olakunri","Grace Alele-Williams","Dora Akunyili"],a:1,t:"Nigeria Firsts – Women",d:"hard",e:"Chief (Mrs) Toyin Olakunri (1937–2018) was the first female chartered accountant in Africa. She also served as president of the Institute of Chartered Accountants of Nigeria (ICAN) from 1994 to 1995."},
+  {q:"Who was the first female Vice-Chancellor of a Nigerian university?",o:["Dora Akunyili","Grace Alele-Williams","Ngozi Okonjo-Iweala","Bolanle Awe"],a:1,t:"Nigeria Firsts – Women",d:"hard",e:"Professor Grace Alele-Williams was the first female Nigerian Vice-Chancellor, serving as VC of the University of Benin from 1985. She was also the first Nigerian woman to be awarded a doctorate."},
+  {q:"Who was the first female Attorney General of Lagos State?",o:["Folake Solanke","Priscilla Kuye","Hairat Balogun","Modupe Omo-Eboh"],a:2,t:"Nigeria Firsts – Women",d:"hard",e:"Hairat Aderinsola Balogun (née Alatishe) was the first female Attorney General of Lagos State, called to the Nigerian bar in 1963."},
+  {q:"Funmilayo Ransome-Kuti is also notable for being the mother of which famous Nigerian?",o:["Wole Soyinka","Chinua Achebe","Fela Anikulapo-Kuti","Herbert Macaulay"],a:2,t:"Nigeria Firsts – Women",d:"easy",e:"Funmilayo Ransome-Kuti was the mother of legendary Afrobeat musician and activist Fela Anikulapo-Kuti. She was a fearless women's rights activist and nationalist in her own right."},
+  {q:"Who was the first Nigerian woman to win an Olympic medal?",o:["Chioma Ajunwa","Falilat Ogunkoya","Faith Idehen","Mary Onyali"],a:2,t:"Nigeria Firsts – Women",d:"hard",e:"Faith Idehen won a bronze medal in the 4x100m relay at the 1964 Tokyo Olympics — the first Nigerian woman to win an Olympic medal."},
+  {q:"Who was the first Nigerian woman to win an individual Olympic gold medal?",o:["Mary Onyali","Falilat Ogunkoya","Chioma Ajunwa","Faith Idehen"],a:2,t:"Nigeria Firsts – Women",d:"medium",e:"Chioma Ajunwa won the long jump gold medal at the 1996 Atlanta Olympics — the first individual Olympic gold medal won by a Nigerian woman and any African woman at the time."},
+  {q:"Who was Nigeria's first female Inspector General of Police?",o:["No woman has held the position yet","Ngozi Okonkwo","Hafsat Bakare","Aisha Omar"],a:0,t:"Nigeria Firsts – Women",d:"hard",e:"As of 2025, Nigeria has not yet had a female Inspector General of Police. The IGP position has been held exclusively by men throughout Nigeria's history."},
+  {q:"Who was Nigeria's first First Lady (wife of the Head of State)?",o:["Victoria Gowon","Hadiza Shagari","Flora Azikiwe","Ajoke Mohammed"],a:2,t:"Nigeria Firsts – Women",d:"medium",e:"Flora Azikiwe, wife of Nnamdi Azikiwe, was Nigeria's first First Lady when Azikiwe became President in 1963."},
+
+  /* ── NIGERIA FIRSTS — EDUCATION, SPORTS & MEDICINE ── */
+  {q:"Who was Nigeria's first university graduate?",o:["Nnamdi Azikiwe","Herbert Macaulay","James Africanus Beale Horton","Christopher Sapara Williams"],a:2,t:"Nigeria Firsts – Education & Medicine",d:"hard",e:"Dr. James Africanus Beale Horton (1835–1883) is regarded as Nigeria's first university graduate, receiving a medical degree from the University of Edinburgh in 1859. He was also a pioneering African intellectual."},
+  {q:"Who was the first Nigerian to win a Nobel Prize?",o:["Chinua Achebe","Ngozi Okonjo-Iweala","Wole Soyinka","Ken Saro-Wiwa"],a:2,t:"Nigeria Firsts – Education & Medicine",d:"easy",e:"Wole Soyinka became the first Nigerian and first Black African to win the Nobel Prize in Literature in 1986."},
+  {q:"The first university in Nigeria is the University of Ibadan, founded in which year?",o:["1945","1948","1952","1960"],a:1,t:"Nigeria Firsts – Education & Medicine",d:"medium",e:"The University of Ibadan was established in 1948 as University College Ibadan, affiliated with the University of London, making it Nigeria's and one of Africa's oldest universities."},
+  {q:"Who scored Nigeria's first ever World Cup goal?",o:["Jay-Jay Okocha","Nwankwo Kanu","Rashidi Yekini","Sunday Oliseh"],a:2,t:"Nigeria Firsts – Sports",d:"medium",e:"Rashidi Yekini scored Nigeria's first World Cup goal against Bulgaria in the 1994 FIFA World Cup in the USA, celebrated with an iconic moment of clutching the net in tears."},
+  {q:"Who was the first Nigerian footballer to play in the English Premier League?",o:["Nwankwo Kanu","Efan Ekoku","Jay-Jay Okocha","Celestine Babayaro"],a:1,t:"Nigeria Firsts – Sports",d:"hard",e:"Efan Ekoku, born in England to a Nigerian father, was among the earliest Nigerians in the Premier League, playing for Norwich City from 1993. He scored 4 goals in a single Premier League game in 1993, a record at the time."},
+  {q:"Nigeria first qualified for the FIFA World Cup in which year?",o:["1990","1994","1998","2002"],a:1,t:"Nigeria Firsts – Sports",d:"medium",e:"Nigeria first qualified for and participated in the FIFA World Cup in 1994 in the United States. They reached the Round of 16, beating Greece and Bulgaria in the group stage."},
+  {q:"Who was the first Nigerian to win an Olympic gold medal (individual)?",o:["Chioma Ajunwa","Hakeem Olajuwon","Sunday Bada","Tobi Amusan"],a:0,t:"Nigeria Firsts – Sports",d:"medium",e:"Chioma Ajunwa won the long jump at the 1996 Atlanta Olympics — the first individual Olympic gold for Nigeria."},
+  {q:"Nigeria's first AFCON title was won in which year and which city hosted the final?",o:["1976 — Lagos","1980 — Lagos","1980 — Kaduna","1984 — Abuja"],a:1,t:"Nigeria Firsts – Sports",d:"medium",e:"Nigeria won their first AFCON title in 1980, hosted in Lagos. They defeated Algeria 3-0 in the final at the National Stadium, Surulere."},
+  {q:"Who was the first Nigerian player to win the UEFA Champions League?",o:["Jay-Jay Okocha","Nwankwo Kanu","Celestine Babayaro","Taribo West"],a:1,t:"Nigeria Firsts – Sports",d:"medium",e:"Nwankwo Kanu won the UEFA Champions League with Ajax in 1995, becoming the first Nigerian to win the competition."},
+  {q:"Who was the first Nigerian doctor?",o:["Oguntola Sapara","James Africanus Beale Horton","Obafemi Awolowo","Aminu Kano"],a:1,t:"Nigeria Firsts – Education & Medicine",d:"hard",e:"Dr. James Africanus Beale Horton (1835–1883) is considered Nigeria's first medical doctor, graduating from the University of Edinburgh in 1859. He was a surgeon in the British West African Army."},
+
+  /* ── HEADS OF AGENCIES (CURRENT) ── */
+  {q:"Who is the current Executive Chairman of the EFCC (as of 2024–2025)?",o:["Abdulrasheed Bawa","Ibrahim Magu","Olanipekun Olukoyede","Nuhu Ribadu"],a:2,t:"Heads of Agencies",d:"medium",e:"Olanipekun 'Ola' Olukoyede was appointed EFCC Chairman by President Tinubu on October 12, 2023. He previously served as EFCC Secretary and is a lawyer by training."},
+  {q:"Who was the first Executive Chairman (founder) of the EFCC?",o:["Ibrahim Magu","Abdulrasheed Bawa","Nuhu Ribadu","Farida Waziri"],a:2,t:"Heads of Agencies",d:"medium",e:"Nuhu Ribadu was the first Chairman of the EFCC, serving from 2003 to 2007 under President Obasanjo. He is now Nigeria's National Security Adviser under President Tinubu."},
+  {q:"Who is the Director General of NAFDAC (as of 2023–2025)?",o:["Dora Akunyili","Paul Orhii","Adamu Aliyu","Prof. Mojisola Adeyeye"],a:3,t:"Heads of Agencies",d:"medium",e:"Prof. Moji (Mojisola) Adeyeye has served as NAFDAC Director General since 2017 and was reappointed for a second term in December 2022. She is a pharmaceutical scientist."},
+  {q:"Who is most famous for transforming NAFDAC in the early 2000s?",o:["Prof. Mojisola Adeyeye","Dora Akunyili","Paul Orhii","Adamu Aliyu"],a:1,t:"Heads of Agencies",d:"easy",e:"Late Prof. Dora Akunyili served as NAFDAC DG from 2001 to 2008. She became a national hero for her fierce crackdown on counterfeit drugs, earning numerous international awards."},
+  {q:"Who is the Director General of NITDA (National IT Development Agency)?",o:["Umar Garba Danbatta","Bosun Tijani","Inuwa Kashifu Abdullahi","Aminu Maida"],a:2,t:"Heads of Agencies",d:"medium",e:"Inuwa Kashifu Abdullahi has served as Director General/CEO of NITDA since 2019. He was reappointed under Tinubu's administration and won recognition as Most Supportive CEO to Spokespersons in 2025."},
+  {q:"Who is the Governor of the Central Bank of Nigeria (CBN) as of 2024–2025?",o:["Godwin Emefiele","Lamido Sanusi","Folashodun Shonubi","Yemi Cardoso"],a:3,t:"Heads of Agencies",d:"medium",e:"Olayemi 'Yemi' Cardoso was appointed CBN Governor by President Tinubu on September 15, 2023. He is a former Chairman of Citibank Nigeria and Lagos State's former Commissioner for Economic Planning."},
+  {q:"Who is the Chairman of INEC (Independent National Electoral Commission) as of 2025?",o:["Prof. Mahmood Yakubu","Attahiru Jega","Abel Guobadia","Prof. Joash Amupitan"],a:3,t:"Heads of Agencies",d:"hard",e:"Prof. Joash Amupitan SAN was sworn in as INEC Chairman on October 23, 2025, succeeding Prof. Mahmood Yakubu who served from 2015 to 2025."},
+  {q:"Who was the INEC Chairman during the 2015 and 2019 elections?",o:["Attahiru Jega","Abel Guobadia","Prof. Mahmood Yakubu","Maurice Iwu"],a:2,t:"Heads of Agencies",d:"medium",e:"Prof. Mahmood Yakubu served as INEC Chairman from 2015 to 2025, overseeing the 2015, 2019, and 2023 general elections."},
+  {q:"Who is the current Group CEO of NNPCL (Nigerian National Petroleum Company Limited) as of 2025?",o:["Mele Kyari","Bayo Ojulari","Emmanuella Arukwe","Timipre Sylva"],a:1,t:"Heads of Agencies",d:"hard",e:"Bayo Ojulari was appointed Group CEO of NNPCL in April 2025, succeeding Mele Kyari who had served since 2019. He is an oil and gas engineer with extensive experience in Shell."},
+  {q:"Who is the Director General of NDLEA (National Drug Law Enforcement Agency)?",o:["Hamman Tukur","John Haruna","Muhammed Buba Marwa","Ramalan Yero"],a:2,t:"Heads of Agencies",d:"medium",e:"Retired Brig. Gen. Muhammed Buba Marwa was appointed NDLEA Chairman/CEO by President Buhari in January 2021 and was retained by President Tinubu. He was formerly Military Governor of Lagos State."},
+  {q:"Who heads the ICPC (Independent Corrupt Practices Commission)?",o:["Ekpo Nta","Bolaji Owasanoye","Abubakar Malami","Hassan Liman"],a:1,t:"Heads of Agencies",d:"hard",e:"Prof. Bolaji Owasanoye has served as Chairman of the ICPC since 2019. He is a law professor and was the first ICPC chairman to be appointed from an academic background."},
+  {q:"Who heads NIMASA (Nigerian Maritime Administration and Safety Agency)?",o:["Dakuku Peterside","Bashir Jamoh","Ahmed Tidi","Hassan Bello"],a:1,t:"Heads of Agencies",d:"hard",e:"Dr. Bashir Jamoh has served as Director General of NIMASA since 2020, appointed by President Buhari. He previously served as Executive Director in the agency."},
+  {q:"Who is the Executive Vice Chairman of the NCC (Nigerian Communications Commission)?",o:["Umar Garba Danbatta","Aminu Maida","Inuwa Kashifu","Bosun Tijani"],a:1,t:"Heads of Agencies",d:"hard",e:"Dr. Aminu Maida was appointed Executive Vice Chairman/CEO of the NCC in 2023 by President Tinubu, succeeding Prof. Umar Garba Danbatta who served from 2015 to 2023."},
+  {q:"Who is the Director General of SON (Standards Organisation of Nigeria)?",o:["Farouk Salim","Osita Aboloma","Edo Uwheru","Paul Angya"],a:1,t:"Heads of Agencies",d:"hard",e:"Osita Aboloma served as SON DG. Under Tinubu's administration, Dr. Adeola Steel was appointed the new DG of SON in 2023 to strengthen product standardisation."},
+  {q:"Who is the Corps Marshall (head) of the FRSC (Federal Road Safety Corps)?",o:["Boboye Oyeyemi","Dauda Ali Biu","Shehu Mohammed","Lucas Ogbodo"],a:1,t:"Heads of Agencies",d:"hard",e:"Corps Marshall Dauda Ali Biu is the current head of the FRSC. He was appointed by President Tinubu in 2023, succeeding Dauda Biu's predecessor Boboye Oyeyemi who served until 2023."},
+  {q:"Who was the first female Director General of NAFDAC?",o:["Prof. Mojisola Adeyeye","Dora Akunyili","Adamu Aliyu","All NAFDAC DGs have been women"],a:1,t:"Heads of Agencies",d:"medium",e:"Late Prof. Dora Nkem Akunyili was the first female and arguably most celebrated DG of NAFDAC, serving from 2001 to 2008. Her war on fake drugs became legendary."},
+  {q:"Who heads the DSS (Department of State Security)?",o:["The head is publicly known as Director General","The position is officially classified — DG identity is secret","Kayode Egbetokun","Mohammed Abubakar"],a:1,t:"Heads of Agencies",d:"hard",e:"By Nigerian tradition and statute, the identity of the DSS Director General is not officially publicised. The agency operates as a covert domestic intelligence service."},
+  {q:"Who is the Inspector General of Police under Tinubu's administration?",o:["Mohammed Adamu","Kayode Egbetokun","Usman Alkali Baba","Lanre Bankole"],a:1,t:"Heads of Agencies",d:"medium",e:"Kayode Egbetokun was appointed Inspector General of Police by President Tinubu in June 2023, becoming the 22nd IGP in Nigeria's history."},
+  {q:"Who heads the FIRS (Federal Inland Revenue Service)?",o:["Tunde Fowler","Muhammad Nami","Babatunde Fowler","Zacch Adedeji"],a:3,t:"Heads of Agencies",d:"hard",e:"Zacch Adedeji was appointed Executive Chairman of FIRS by President Tinubu in September 2023. He previously served as Special Adviser on Revenue to Tinubu during his Lagos governorship."},
+
+  /* ── SDGs — SUSTAINABLE DEVELOPMENT GOALS ── */
+  {q:"How many Sustainable Development Goals (SDGs) are there?",o:["12","15","17","20"],a:2,t:"SDGs",d:"easy",e:"There are 17 Sustainable Development Goals (SDGs), adopted by UN member states in September 2015, with a target date of 2030."},
+  {q:"In which year were the SDGs adopted by the United Nations?",o:["2010","2013","2015","2018"],a:2,t:"SDGs",d:"easy",e:"The 17 SDGs were adopted at the UN Sustainable Development Summit on September 25, 2015, as part of the 2030 Agenda for Sustainable Development."},
+  {q:"What is the target year for achieving all the SDGs?",o:["2025","2030","2035","2040"],a:1,t:"SDGs",d:"easy",e:"All 17 SDGs are meant to be achieved by 2030, which is why the SDG framework is also called 'the 2030 Agenda.'"},
+  {q:"What is SDG 1?",o:["Zero Hunger","Good Health and Well-Being","No Poverty","Quality Education"],a:2,t:"SDGs",d:"easy",e:"SDG 1 is 'No Poverty' — to end poverty in all its forms everywhere. It is the first and most fundamental of the 17 goals."},
+  {q:"What is SDG 2?",o:["Zero Hunger","Clean Water","No Poverty","Good Health"],a:0,t:"SDGs",d:"easy",e:"SDG 2 is 'Zero Hunger' — to end hunger, achieve food security and improved nutrition, and promote sustainable agriculture."},
+  {q:"What is SDG 3?",o:["Quality Education","Good Health and Well-Being","Clean Water and Sanitation","Climate Action"],a:1,t:"SDGs",d:"easy",e:"SDG 3 is 'Good Health and Well-Being' — to ensure healthy lives and promote well-being for all at all ages."},
+  {q:"What is SDG 4?",o:["Gender Equality","Reduced Inequalities","Quality Education","Decent Work"],a:2,t:"SDGs",d:"easy",e:"SDG 4 is 'Quality Education' — to ensure inclusive and equitable quality education and promote lifelong learning opportunities for all."},
+  {q:"What is SDG 5?",o:["No Poverty","Gender Equality","Reduced Inequalities","Peace and Justice"],a:1,t:"SDGs",d:"easy",e:"SDG 5 is 'Gender Equality' — to achieve gender equality and empower all women and girls."},
+  {q:"What is SDG 6?",o:["Affordable and Clean Energy","Clean Water and Sanitation","Life Below Water","Climate Action"],a:1,t:"SDGs",d:"medium",e:"SDG 6 is 'Clean Water and Sanitation' — to ensure availability and sustainable management of water and sanitation for all."},
+  {q:"What is SDG 7?",o:["Affordable and Clean Energy","Industry, Innovation and Infrastructure","Sustainable Cities","Responsible Consumption"],a:0,t:"SDGs",d:"medium",e:"SDG 7 is 'Affordable and Clean Energy' — to ensure access to affordable, reliable, sustainable, and modern energy for all."},
+  {q:"What is SDG 8?",o:["Good Health","Decent Work and Economic Growth","Reduced Inequalities","Sustainable Cities"],a:1,t:"SDGs",d:"medium",e:"SDG 8 is 'Decent Work and Economic Growth' — to promote sustained, inclusive, and sustainable economic growth, full and productive employment, and decent work for all."},
+  {q:"What is SDG 9?",o:["Sustainable Cities","Life on Land","Industry, Innovation and Infrastructure","Climate Action"],a:2,t:"SDGs",d:"medium",e:"SDG 9 is 'Industry, Innovation and Infrastructure' — to build resilient infrastructure, promote inclusive and sustainable industrialisation, and foster innovation."},
+  {q:"What is SDG 10?",o:["Responsible Consumption","Reduced Inequalities","No Poverty","Peace and Justice"],a:1,t:"SDGs",d:"medium",e:"SDG 10 is 'Reduced Inequalities' — to reduce inequality within and among countries."},
+  {q:"What is SDG 11?",o:["Climate Action","Life Below Water","Sustainable Cities and Communities","Partnership for the Goals"],a:2,t:"SDGs",d:"medium",e:"SDG 11 is 'Sustainable Cities and Communities' — to make cities and human settlements inclusive, safe, resilient, and sustainable."},
+  {q:"What is SDG 12?",o:["Life on Land","Responsible Consumption and Production","Zero Hunger","Good Health"],a:1,t:"SDGs",d:"medium",e:"SDG 12 is 'Responsible Consumption and Production' — to ensure sustainable consumption and production patterns."},
+  {q:"What is SDG 13?",o:["Life Below Water","Life on Land","Climate Action","Affordable Clean Energy"],a:2,t:"SDGs",d:"medium",e:"SDG 13 is 'Climate Action' — to take urgent action to combat climate change and its impacts."},
+  {q:"What is SDG 14?",o:["Life on Land","Life Below Water","Clean Water and Sanitation","Sustainable Cities"],a:1,t:"SDGs",d:"medium",e:"SDG 14 is 'Life Below Water' — to conserve and sustainably use the oceans, seas, and marine resources for sustainable development."},
+  {q:"What is SDG 15?",o:["Life Below Water","Life on Land","Climate Action","Zero Hunger"],a:1,t:"SDGs",d:"medium",e:"SDG 15 is 'Life on Land' — to protect, restore and promote sustainable use of terrestrial ecosystems, forests, wetlands, and halt biodiversity loss."},
+  {q:"What is SDG 16?",o:["Partnerships for the Goals","Peace, Justice and Strong Institutions","Reduced Inequalities","Sustainable Cities"],a:1,t:"SDGs",d:"medium",e:"SDG 16 is 'Peace, Justice and Strong Institutions' — to promote peaceful and inclusive societies, provide access to justice for all, and build effective institutions."},
+  {q:"What is SDG 17?",o:["Reduced Inequalities","Life on Land","Partnerships for the Goals","Climate Action"],a:2,t:"SDGs",d:"medium",e:"SDG 17 is 'Partnerships for the Goals' — to strengthen the means of implementation and revitalise the global partnership for sustainable development."},
+  {q:"The SDGs replaced which earlier international development framework?",o:["The Kyoto Protocol","The Millennium Development Goals (MDGs)","The Johannesburg Declaration","Agenda 21"],a:1,t:"SDGs",d:"medium",e:"The SDGs succeeded the Millennium Development Goals (MDGs), which ran from 2000 to 2015. The MDGs had 8 goals; the SDGs expanded this to 17 with 169 targets."},
+  {q:"How many targets do the 17 SDGs collectively contain?",o:["100","130","169","200"],a:2,t:"SDGs",d:"hard",e:"The 17 SDGs have 169 targets in total, and 232 unique indicators to measure progress toward achieving them."},
+  {q:"Which SDG specifically addresses gender equality?",o:["SDG 3","SDG 4","SDG 5","SDG 6"],a:2,t:"SDGs",d:"easy",e:"SDG 5 addresses Gender Equality, aiming to end all forms of discrimination against women and girls everywhere."},
+  {q:"Which SDG deals with climate change?",o:["SDG 11","SDG 12","SDG 13","SDG 14"],a:2,t:"SDGs",d:"easy",e:"SDG 13 — Climate Action — calls for urgent measures to combat climate change and its impacts."},
+  {q:"Which SDG is focused on education?",o:["SDG 2","SDG 3","SDG 4","SDG 5"],a:2,t:"SDGs",d:"easy",e:"SDG 4 — Quality Education — aims to ensure inclusive and equitable quality education for all by 2030."},
+  {q:"Which SDG calls for 'No Poverty'?",o:["SDG 1","SDG 2","SDG 3","SDG 4"],a:0,t:"SDGs",d:"easy",e:"SDG 1 — No Poverty — is the goal to end poverty in all its forms everywhere."},
+  {q:"The SDGs were created to apply to which countries?",o:["Only developing countries","Only African countries","All countries — developed and developing","Only UN Security Council members"],a:2,t:"SDGs",d:"medium",e:"Unlike the MDGs which targeted developing countries, the SDGs are universal — applying to all 193 UN member states, both rich and poor."},
+  {q:"Which SDG focuses on access to affordable energy?",o:["SDG 6","SDG 7","SDG 8","SDG 9"],a:1,t:"SDGs",d:"medium",e:"SDG 7 — Affordable and Clean Energy — aims to ensure access to affordable, reliable, sustainable, and modern energy for all."},
+  {q:"Which SDG is about 'Life Below Water'?",o:["SDG 12","SDG 13","SDG 14","SDG 15"],a:2,t:"SDGs",d:"medium",e:"SDG 14 — Life Below Water — focuses on the conservation and sustainable use of the world's oceans and marine resources."},
+  {q:"Which SDG focuses on reducing inequality within and among nations?",o:["SDG 8","SDG 9","SDG 10","SDG 11"],a:2,t:"SDGs",d:"medium",e:"SDG 10 — Reduced Inequalities — aims to reduce inequality within and among countries, addressing income inequality and social exclusion."},
+
+  /* ── MORE NIGERIA FIRSTS — MISC ── */
+  {q:"Who designed the Nigerian flag?",o:["Herbert Macaulay","Taiwo Akinkunmi","Olu Agunloye","Ben Enwonwu"],a:1,t:"Nigeria Firsts – Education & Medicine",d:"medium",e:"Michael Taiwo Akinkunmi designed Nigeria's flag in 1959. He was a 23-year-old engineering student in London when he submitted the winning design for a flag design competition."},
+  {q:"What is Nigeria's national animal?",o:["Lion","Eagle","Buffalo","Elephant"],a:1,t:"Nigeria Firsts – Education & Medicine",d:"easy",e:"The eagle is Nigeria's national animal, symbolising strength and power. It is prominently featured on the Nigerian coat of arms."},
+  {q:"What is Nigeria's national flower?",o:["Rose","Hibiscus","Costus spectabilis","Water lily"],a:2,t:"Nigeria Firsts – Education & Medicine",d:"hard",e:"Costus spectabilis (yellow trumpet) is Nigeria's national flower, adopted as the country's botanical symbol."},
+  {q:"What are the colours on Nigeria's coat of arms?",o:["Green and white","Black, silver and green","White and silver","Red, white, and green"],a:1,t:"Nigeria Firsts – Education & Medicine",d:"hard",e:"Nigeria's coat of arms features a black shield (representing the Niger River), two white wavy bands, two horses (supporters), an eagle on top, and green/white flowers at the base."},
+  {q:"Who was the first Nigerian to circumnavigate the globe (sail around the world)?",o:["No Nigerian has done this","Kunle Adeyanju","Gboyega Odubiyi","Siji Awoyemi"],a:1,t:"Nigeria Firsts – Education & Medicine",d:"hard",e:"Kunle Adeyanju completed a solo motorcycle journey around the world in 2022, completing the circuit and becoming the first Nigerian to complete such a global journey on a motorcycle."},
+  {q:"Nigeria's first television station, WNTV, was established in which year?",o:["1956","1958","1959","1960"],a:2,t:"Nigeria Firsts – Education & Medicine",d:"medium",e:"The Western Nigeria Television (WNTV) was established in 1959 in Ibadan, making it the first television station in Africa — before stations in the UK, France, or other African countries had such reach."},
+      {q:"Who was the first African to be ordained a Christian bishop?",o:["Herbert Macaulay","Samuel Ajayi Crowther","James Africanus Horton","Olaudah Equiano"],a:1,t:"Nigeria Firsts – Education & Medicine",d:"medium",e:"Samuel Ajayi Crowther (c. 1809–1891) was the first African to be ordained as an Anglican bishop, ordained Bishop of the Niger territories in 1864. He was also a Yoruba linguist who translated the Bible."},
+    {q:"Nigeria's first indigenous commercial bank was established in which year?",o:["1929","1933","1945","1952"],a:1,t:"Nigeria Firsts – Education & Medicine",d:"hard",e:"The National Bank of Nigeria (later renamed) was established in 1933, making it one of Nigeria's first indigenous commercial banking institutions."},
+  {q:"The first Indigenous language newspaper in Nigeria was in which language?",o:["Igbo","Hausa","Yoruba","Efik"],a:2,t:"Nigeria Firsts – Education & Medicine",d:"hard",e:"The Iwe Irohin, founded by Reverend Henry Townsend in 1859 in Abeokuta, was the first Nigerian newspaper and was printed in Yoruba and English — making Yoruba the first indigenous language used in Nigerian print media."},
+  {q:"Who was the first Nigerian to receive a PhD?",o:["Nnamdi Azikiwe","Akinola Maja","Obafemi Awolowo","Grace Alele-Williams"],a:0,t:"Nigeria Firsts – Education & Medicine",d:"hard",e:"Nnamdi Azikiwe (Zik) received a PhD from Lincoln University in the USA in 1958 (or earlier — he held multiple degrees), becoming one of the most highly educated Nigerians of his generation. Grace Alele-Williams was the first Nigerian woman to earn a doctorate."},
+    {q:"Who won Nigeria's first ever Olympic medal?",o:["Nojim Maiyegun","Rotimi Peters","Sunday Oliseh","Emmanuel Ifeajuna"],a:0,t:"Nigeria Firsts – Sports",d:"hard",e:"Nojim Maiyegun won a bronze medal in boxing (light middleweight) at the 1964 Tokyo Olympics — Nigeria's first Olympic medal ever."},
+  {q:"What was the name of the first grammar school in Nigeria?",o:["King's College Lagos","CMS Grammar School Lagos","Baptist Boys' High School","Government College Umuahia"],a:1,t:"Nigeria Firsts – Education & Medicine",d:"medium",e:"The CMS Grammar School, Lagos, founded in 1859, was the first grammar school in Nigeria — and Funmilayo Ransome-Kuti was the first female student admitted to Abeokuta Grammar School (the second oldest)."},
+  {q:"What is GCFR as used after Tinubu's name — what does it stand for?",o:["Grand Chancellor of the Federal Republic","Grand Commander of the Order of the Federal Republic","Grand Council of the Federal Republic","General Commander of Federal Resources"],a:1,t:"Heads of Agencies",d:"medium",e:"GCFR stands for Grand Commander of the Order of the Federal Republic — the highest national honour in Nigeria, reserved exclusively for sitting and former Presidents."},
+  {q:"GCON — seen after names like the Vice President — stands for what?",o:["Grand Commander of the Order of Nigeria","Grand Council of Nigeria","Grand Companion of the Order of Nigeria","General Commander of Nigeria"],a:0,t:"Heads of Agencies",d:"medium",e:"GCON stands for Grand Commander of the Order of Nigeria — the second highest national honour, typically held by the Vice President and some former heads of state."},
+  {q:"Nigeria's Chief of Defence Staff was changed in October 2025. Who is the current CDS?",o:["Lucky Irabor","Christopher Musa","Olufemi Oluyede","Taoreed Lagbaja"],a:2,t:"Heads of Agencies",d:"hard",e:"General Olufemi Oluyede was appointed Chief of Defence Staff by President Tinubu in October 2025, replacing General Christopher Musa. General Waidi Shaibu simultaneously became the new Chief of Army Staff."},
+  {q:"Who is the current Chief of Army Staff (as of late 2025)?",o:["Taoreed Lagbaja","Faruk Yahaya","Lucky Irabor","Waidi Shaibu"],a:3,t:"Heads of Agencies",d:"hard",e:"Lt. Gen. Waidi Shaibu was appointed Chief of Army Staff in October 2025 after the death of Gen. Taoreed Lagbaja, who died in September 2025."},
+  {q:"The National Security Adviser (NSA) under President Tinubu is who?",o:["Babagana Monguno","Christopher Musa","Nuhu Ribadu","Mohammed Abubakar"],a:2,t:"Heads of Agencies",d:"medium",e:"Nuhu Ribadu — first EFCC Chairman — was appointed National Security Adviser (NSA) by President Tinubu in June 2023. He was previously APC's presidential candidate in 2011."},
+        {q:"Who was the first female EFCC Chairman?",o:["Dora Akunyili","Farida Waziri","Ngozi Okonjo-Iweala","Amina Mohammed"],a:1,t:"Heads of Agencies",d:"medium",e:"Farida Mzamber Waziri was the second and first female EFCC Chairman, serving from 2008 to 2011. She succeeded Nuhu Ribadu."},
+  {q:"What does JAMB stand for and who is the Registrar?",o:["Joint Admissions and Matriculation Board — Is'haq Oloyede","Junior Academic and Matriculation Bureau — Adamu Umar","Joint Academic Matriculation Bureau — Emeka Eze","Joint Admissions and Merit Board — Chukwuemeka Nweke"],a:0,t:"Heads of Agencies",d:"medium",e:"JAMB stands for Joint Admissions and Matriculation Board. Prof. Is'haq Oloyede has served as JAMB Registrar since 2016 and is widely credited with revolutionising Nigeria's university entrance examination through technology and anti-corruption measures."},
+  {q:"What does WAEC stand for?",o:["West African Educational Committee","West African Examinations Council","West African Excellence Council","Western Africa Exam Commission"],a:1,t:"Heads of Agencies",d:"easy",e:"WAEC stands for West African Examinations Council, the body that conducts the WASSCE (West African Senior School Certificate Examination) across Ghana, Nigeria, Sierra Leone, The Gambia, and Liberia."},
+  {q:"What does NECO stand for, and what examination does it conduct?",o:["National Examination and Certification Organisation — NECO exam","National Examinations Council — Senior School Certificate Examination","National Educational Council Organisation — National exam","Nigeria External Certificate Organisation — NECO exam"],a:1,t:"Heads of Agencies",d:"easy",e:"NECO stands for National Examinations Council. It conducts the Senior School Certificate Examination (SSCE) in June/July and the National Common Entrance Examination, among others."},
+    ];
+
 const THEMES={
   nigeria:{accent:'#008751',accentDark:'#005c37',accentLight:'#d4f0e4',accentTextDark:'#004d2e',name:'Nigeria CBT',emoji:'🇳🇬'},
-  global:{accent:'#1d4ed8',accentDark:'#1e40af',accentLight:'#dbeafe',accentTextDark:'#1e3a8a',name:'Global Knowledge CBT',emoji:'🌍'}
+  global:{accent:'#1d4ed8',accentDark:'#1e40af',accentLight:'#dbeafe',accentTextDark:'#1e3a8a',name:'Global Knowledge CBT',emoji:'🌍'},
+  firsts:{accent:'#7c3aed',accentDark:'#5b21b6',accentLight:'#ede9fe',accentTextDark:'#4c1d95',name:'Nigeria Firsts, SDGs & Agency Heads',emoji:'🏅'}
 };
 
 let section=null,TOTAL=0,qs=[],cur=0,ans=[],score=0;
@@ -607,38 +928,37 @@ function fmt(s){const m=Math.floor(s/60),sec=s%60;return`${m}:${sec<10?'0':''}${
 function showPicker(){
   clearInterval(timerInterval);
   section=null;
-  document.getElementById('hdr-title').textContent='📚 CBT Practice Hub';
-  document.getElementById('hdr-sub').textContent='Choose a section to begin';
-  document.getElementById('app').style.borderTop='3px solid var(--color-border-tertiary)';
+  document.getElementById('hdr-title').textContent='Quiz Sections';
+  document.getElementById('hdr-sub').textContent='Choose a section to begin your practice';
+  document.getElementById('app').style.borderTop='none';
   const main=document.getElementById('main');
-  main.innerHTML=`
-    <div class="pick-grid">
-      <button class="pick-card" onclick="selectSection('nigeria')">
-        <span class="pick-emoji">🇳🇬</span>
+  const cards=[
+    {key:'nigeria',bar:'#008751',icon:'#d4f0e4',emoji:'🇳🇬',label:'Nigeria CBT',desc:`${NIGERIA_BANK.length} questions · Politics, States, History, Sports, Music, Agencies & Ministers`,countBg:'#d4f0e4',countColor:'#004d2e'},
+    {key:'global',bar:'#1d4ed8',icon:'#dbeafe',emoji:'🌍',label:'Global Knowledge CBT',desc:`${GLOBAL_BANK.length} questions · Flags, World Firsts, Founders, Geography, Records & Culture`,countBg:'#dbeafe',countColor:'#1e3a8a'},
+    {key:'firsts',bar:'#7c3aed',icon:'#ede9fe',emoji:'🏅',label:'Nigeria Firsts, SDGs & Agencies',desc:`${FIRSTS_BANK.length} questions · Nigerian pioneers, all 17 SDGs, heads of parastatals`,countBg:'#ede9fe',countColor:'#4c1d95'},
+  ];
+  main.innerHTML=`<div class="pick-grid">${cards.map(c=>`
+    <button class="pick-card" onclick="selectSection('${c.key}')">
+      <div class="pick-card-bar" style="background:${c.bar}"></div>
+      <div class="pick-card-inner">
+        <div class="pick-icon" style="background:${c.icon}">${c.emoji}</div>
         <div class="pick-text">
-          <h4>Nigeria CBT</h4>
-          <p>${NIGERIA_BANK.length} questions · Politics, States, History, Sports, Music, Agencies, Ministers, Sanya & Scars</p>
+          <h4>${c.label}</h4>
+          <p>${c.desc}</p>
         </div>
-        <span class="pick-arrow">→</span>
-      </button>
-      <button class="pick-card" onclick="selectSection('global')">
-        <span class="pick-emoji">🌍</span>
-        <div class="pick-text">
-          <h4>Global Knowledge CBT</h4>
-          <p>${GLOBAL_BANK.length} questions · Flags, World Firsts, Founders, Geography, Records & Culture</p>
-        </div>
-        <span class="pick-arrow">→</span>
-      </button>
-    </div>
-  `;
+        <span class="pick-count" style="background:${c.countBg};color:${c.countColor}">${c.key==='nigeria'?NIGERIA_BANK.length:c.key==='global'?GLOBAL_BANK.length:FIRSTS_BANK.length}Q</span>
+        <span class="pick-arrow">›</span>
+      </div>
+    </button>`).join('')}
+  </div>`;
 }
 
 function selectSection(key){
   section=key;
   const t=THEMES[key];
-  TOTAL=key==='nigeria'?NIGERIA_BANK.length:GLOBAL_BANK.length;
-  document.getElementById('hdr-title').textContent=`${t.emoji} ${t.name}`;
-  document.getElementById('hdr-sub').textContent=`${TOTAL} questions · Tap below to set your timer`;
+  TOTAL=key==='nigeria'?NIGERIA_BANK.length:key==='global'?GLOBAL_BANK.length:FIRSTS_BANK.length;
+  document.getElementById('hdr-title').textContent=t.name;
+  document.getElementById('hdr-sub').textContent=`${TOTAL} questions · Set your timer to begin`;
   applyTheme(key);
   startSetup();
 }
@@ -651,15 +971,15 @@ function startSetup(){
   const btns=presets.map(m=>`<button class="dur-btn${customMins===m?' sel':''}" data-m="${m}" onclick="selDur(${m},this)">${m} min</button>`).join('');
   main.innerHTML=`
     <div class="setup">
-      <h3>⏱ Set your timer</h3>
-      <p>Choose how long you want for all ${TOTAL} questions, or enter a custom time. You can also turn the timer off.</p>
+      <div class="setup-title">⏱ Set your timer</div>
+      <p>Choose a duration for all ${TOTAL} questions, or enter a custom time. You can also turn the timer off.</p>
       <div class="dur-grid">${btns}<button class="dur-btn${!timerOn&&customMins===0?' sel':''}" data-m="0" onclick="selDur(0,this)">No timer</button></div>
       <div class="custom-row">
         Custom: <input type="number" id="cmin" min="1" max="300" value="${customMins||60}" oninput="selDur(+this.value,null)"> minutes
       </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn" onclick="showPicker()">← Back to sections</button>
-        <button class="btn btnp" style="background:${t.accent};border-color:${t.accent}" onclick="startExam()">Start Exam →</button>
+      <div class="setup-btns">
+        <button class="btn" onclick="showPicker()">← Sections</button>
+        <button class="btn btnp" style="background:${t.accent}" onclick="startExam()">Start Exam →</button>
       </div>
     </div>`;
   styleSelected();
@@ -691,7 +1011,7 @@ function startExam(){
   timerOn=customMins>0;
   totalSecs=customMins*60;
   secsLeft=totalSecs;
-  const src=section==='nigeria'?NIGERIA_BANK:GLOBAL_BANK;
+  const src=section==='nigeria'?NIGERIA_BANK:section==='global'?GLOBAL_BANK:FIRSTS_BANK;
   qs=[...src].sort(()=>Math.random()-0.5);
   ans=new Array(TOTAL).fill(null);
   cur=0;score=0;
@@ -732,24 +1052,24 @@ function render(){
   const opts=q.o.map((op,i)=>{
     let c='';
     if(answered){c=i===q.a?'correct':i===ans[cur]?'wrong':'';}
-    return`<button class="opt ${c}" onclick="pick(${i})" ${answered?'disabled':''}>${letters[i]}. ${op}</button>`;
+    return`<button class="opt ${c}" onclick="pick(${i})" ${answered?'disabled':''}><span class="opt-letter">${letters[i]}</span><span class="opt-text">${op}</span></button>`;
   }).join('');
-  const timerHTML=timerOn?`<div class="tmr"><span>⏱</span><span id="tmr-val" class="tmr-val">${fmt(secsLeft)}</span><div class="tmr-bar"><div id="tmr-fill" class="tmr-fill" style="width:${secsLeft/totalSecs*100}%;background:${t.accent}"></div></div></div>`:'';
+  const timerHTML=timerOn?`<div class="tmr"><span class="tmr-icon">⏱</span><span id="tmr-val" class="tmr-val">${fmt(secsLeft)}</span><div class="tmr-bar"><div id="tmr-fill" class="tmr-fill" style="width:${secsLeft/totalSecs*100}%;background:${t.accent}"></div></div></div>`:'';
 
   main.innerHTML=`
     ${timerHTML}
     <div class="meta-bar">
       <div class="pill">Q <span>${cur+1}/${TOTAL}</span></div>
-      <div class="pill">Score <span>${score}</span></div>
+      <div class="pill">✓ <span>${score}</span></div>
       <div class="pill">Done <span>${done}/${TOTAL}</span></div>
-      <button class="btn" style="font-size:11px;padding:3px 9px;margin-left:auto" onclick="showPicker()">⟲ Switch section</button>
+      <button class="btn" style="font-size:11px;padding:4px 10px;margin-left:auto;border-radius:20px" onclick="showPicker()">⟲ Sections</button>
     </div>
     <div class="prog-wrap">
       <div class="prog-label"><span>Progress</span><span>${pct}%</span></div>
       <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${t.accent}"></div></div>
     </div>
     <div class="nav-grid">${nav}</div>
-    <div class="qcard">
+    <div class="qcard" style="border-top-color:${t.accent}">
       <span class="badge ${q.d}">${q.d.charAt(0).toUpperCase()+q.d.slice(1)}</span>
       <span class="badge topic">${q.t}</span>
       <p class="qt">${q.q}</p>
@@ -757,11 +1077,14 @@ function render(){
       ${answered?`<div class="exp" style="border-left-color:${t.accent}">💡 ${q.e}</div>`:''}
     </div>
     <div class="nav-row">
-      <div>${cur>0?`<button class="btn" onclick="goTo(${cur-1})">← Prev</button>`:''}</div>
+      <button class="btn" onclick="goTo(${cur-1})" ${cur===0?'disabled style="opacity:.35;cursor:default"':''}>← Prev</button>
       <div style="display:flex;gap:8px">
-        ${answered&&cur<TOTAL-1?`<button class="btn btnp" style="background:${t.accent};border-color:${t.accent}" onclick="goTo(${cur+1})">Next →</button>`:''}
-        ${answered&&cur===TOTAL-1?`<button class="btn btnp" style="background:${t.accent};border-color:${t.accent}" onclick="showRes(false)">See Results</button>`:''}
-        ${done===TOTAL&&!answered?`<button class="btn btnp" style="background:${t.accent};border-color:${t.accent}" onclick="showRes(false)">See Results</button>`:''}
+        ${cur<TOTAL-1
+          ? `<button class="btn btnp" style="background:${t.accent};${!answered?'opacity:.4;cursor:not-allowed':''}" onclick="${answered?`goTo(${cur+1})`:'void(0)'}" ${!answered?'title="Answer this question first"':''}>Next →</button>`
+          : answered
+            ? `<button class="btn btnp" style="background:${t.accent}" onclick="showRes(false)">See Results</button>`
+            : `<button class="btn btnp" style="background:${t.accent};opacity:.4;cursor:not-allowed" title="Answer this question first">See Results</button>`
+        }
       </div>
     </div>
   `;
@@ -788,33 +1111,55 @@ function showRes(timeout){
   });
   let grade,gc;
   if(pct>=80){grade=`Excellent! ${t.emoji}`;gc=t.accent;}
-  else if(pct>=60){grade='Good job!';gc='#BA7517';}
-  else if(pct>=40){grade='Keep practicing';gc='#BA7517';}
-  else{grade='Needs improvement';gc='#E24B4A';}
-  const toNote=timeout?`<div style="font-size:12px;padding:6px 12px;background:#FCEBEB;color:#A32D2D;border-radius:var(--border-radius-md);margin-bottom:1rem">⏰ Time's up! Unanswered questions counted as wrong.</div>`:'';
+  else if(pct>=60){grade='Good job!';gc='#d97706';}
+  else if(pct>=40){grade='Keep practicing';gc='#d97706';}
+  else{grade='Needs improvement';gc='#ef4444';}
+  const toNote=timeout?`<div style="font-family:'Inter',sans-serif;font-size:12px;padding:8px 14px;background:#fee2e2;color:#b91c1c;border-radius:10px;margin-bottom:1rem;font-weight:500">⏰ Time's up — unanswered questions counted as wrong.</div>`:'';
+
+  // SVG donut ring
+  const r=44,circ=2*Math.PI*r,dash=circ*(pct/100),gap=circ-dash;
+  const ring=`<svg width="110" height="110" viewBox="0 0 110 110">
+    <circle cx="55" cy="55" r="${r}" fill="none" stroke="var(--color-background-secondary)" stroke-width="10"/>
+    <circle cx="55" cy="55" r="${r}" fill="none" stroke="${gc}" stroke-width="10"
+      stroke-dasharray="${dash} ${gap}" stroke-linecap="round" style="transition:stroke-dasharray .8s ease"/>
+  </svg>`;
 
   document.getElementById('main').innerHTML=`
     <div class="res">
       ${toNote}
-      <div class="sbig" style="color:${gc}">${pct}%</div>
-      <div class="ssub">${grade} — ${score} of ${TOTAL} correct</div>
+      <div class="res-ring-wrap">
+        <div class="res-ring">
+          ${ring}
+          <div class="res-ring-label">
+            <div class="res-pct" style="color:${gc}">${pct}%</div>
+            <div class="res-of">${score}/${TOTAL}</div>
+          </div>
+        </div>
+      </div>
+      <div class="ssub">${grade}</div>
       <div class="sgrid">
-        <div class="sc"><div class="sl">Correct</div><div class="sv" style="color:#008751">${score}</div></div>
-        <div class="sc"><div class="sl">Wrong</div><div class="sv" style="color:#E24B4A">${TOTAL-score}</div></div>
-        <div class="sc"><div class="sl">Score</div><div class="sv">${pct}%</div></div>
+        <div class="sc"><div class="sl">Correct</div><div class="sv" style="color:#16a34a">${score}</div></div>
+        <div class="sc"><div class="sl">Wrong</div><div class="sv" style="color:#ef4444">${TOTAL-score}</div></div>
+        <div class="sc"><div class="sl">Score</div><div class="sv" style="color:${gc}">${pct}%</div></div>
       </div>
       <div class="tbd">
-        <p style="font-size:13px;font-weight:500;margin-bottom:10px">Performance by topic</p>
+        <div class="tbd-title">Performance by topic</div>
         ${Object.entries(tm).map(([tp,v])=>{
           const p=Math.round((v.c/v.n)*100);
-          const tc=p>=70?'#3B6D11':p>=40?'#854F0B':'#A32D2D';
-          return`<div class="tr"><span style="color:var(--color-text-secondary)">${tp}</span><span style="font-weight:500;color:${tc}">${v.c}/${v.n} (${p}%)</span></div>`;
+          const tc=p>=70?'#16a34a':p>=40?'#d97706':'#ef4444';
+          return`<div class="tr">
+            <div class="tr-left">
+              <div style="color:var(--color-text-primary);font-weight:500;font-size:12.5px">${tp}</div>
+              <div class="tr-bar" style="width:${p}%;background:${tc}"></div>
+            </div>
+            <div class="tr-right" style="color:${tc}">${v.c}/${v.n} · ${p}%</div>
+          </div>`;
         }).join('')}
       </div>
-      <div style="margin-top:1.5rem;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btnp" style="background:${t.accent};border-color:${t.accent}" onclick="startSetup()">Try Again ↺</button>
-        <button class="btn" onclick="showPicker()">⟲ Switch section</button>
-        <button class="btn" onclick="sendPrompt('I just finished the ${t.name} (${TOTAL} questions). Give me targeted study tips on my weakest topics.')">Get study tips ↗</button>
+      <div class="res-btns">
+        <button class="btn btnp" style="background:${t.accent}" onclick="startSetup()">Try Again ↺</button>
+        <button class="btn" onclick="showPicker()">⟲ Sections</button>
+        <button class="btn" onclick="sendPrompt('I just finished the ${t.name} (${TOTAL} questions). Give me targeted study tips on my weakest topics.')">Study tips ↗</button>
       </div>
     </div>
   `;
@@ -822,4 +1167,3 @@ function showRes(timeout){
 
 showPicker();
 </script>
-<!-- MARKER_CHECK -->
