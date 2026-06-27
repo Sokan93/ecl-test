@@ -304,7 +304,7 @@ const NIGERIA_BANK=[
   {q:"What is the capital of Cross River State?",o:["Calabar","Uyo","Akure","Ikom"],a:0,t:"States & Geography",d:"easy",e:"Calabar is the capital of Cross River State, famous for the annual Calabar Carnival."},
   {q:"Which state is called the 'Confluence State' and why?",o:["Benue — confluence of Benue and Niger","Kogi — confluence of River Niger and River Benue","Niger State — confluence of three rivers","Anambra — the Niger meets the Atlantic"],a:1,t:"States & Geography",d:"medium",e:"Kogi State is the Confluence State because the River Niger and River Benue meet at Lokoja, its capital."},
   {q:"Zamfara State is Nigeria's top producer of which mineral?",o:["Crude oil","Coal","Gold","Iron ore"],a:2,t:"States & Geography",d:"medium",e:"Zamfara State has extensive gold deposits and is the centre of Nigeria's artisanal gold mining — and associated banditry crises."},
-  {q:"Which Nigerian state is the largest by land area?",o:["Niger State","Borno State","Taraba State","Kaduna State"],a:1,t:"States & Geography",d:"medium",e:"Borno State is the largest Nigerian state by land area at about 70,898 km²."},
+  {q:"Which Nigerian state is the largest by land area?",o:["Niger State","Borno State","Taraba State","Kaduna State"],a:0,t:"States & Geography",d:"medium",e:"Niger State is the largest Nigerian state by land area at 76,363 km², located in the North Central region. Borno State is second at 70,898 km²."},
   {q:"The oil-rich Ogoni land is located in which state?",o:["Delta","Bayelsa","Rivers","Akwa Ibom"],a:2,t:"States & Geography",d:"medium",e:"Ogoniland is in Rivers State. Ken Saro-Wiwa led the Movement for the Survival of the Ogoni People (MOSOP) there."},
   {q:"What is the capital of Anambra State?",o:["Onitsha","Nnewi","Awka","Enugu"],a:2,t:"States & Geography",d:"medium",e:"Awka is the capital of Anambra State, although Onitsha is the commercial hub."},
   {q:"Which state is called the 'Food Basket of the Nation'?",o:["Benue","Plateau","Kano","Nasarawa"],a:0,t:"States & Geography",d:"easy",e:"Benue State is called the Food Basket of the Nation due to its rich agricultural output including yam, sorghum, and soybeans."},
@@ -793,6 +793,78 @@ const GLOBAL_BANK=[
   {q:"What is the name of the layer of the Earth's atmosphere that protects us from harmful UV radiation?",o:["Troposphere","Stratosphere — ozone layer","Mesosphere","Thermosphere"],a:1,t:"Science & Discovery",d:"medium",e:"The ozone layer sits in the stratosphere, about 15–35 km above Earth's surface. It absorbs most of the Sun's ultraviolet radiation, protecting life on Earth."}
 ];
 
+const SCIENCE_BANK=[
+  /* ── HUMAN BODY & BIOLOGY ── */
+  {q:"What is the largest organ in the human body?",o:["Liver","Brain","Skin","Heart"],a:2,t:"Human Body",d:"easy",e:"The skin is the largest organ, covering about 2 square metres on an average adult and accounting for about 15% of body weight."},
+  {q:"How many chambers does the human heart have?",o:["2","3","4","5"],a:2,t:"Human Body",d:"easy",e:"The human heart has 4 chambers: two upper chambers (atria) and two lower chambers (ventricles)."},
+  {q:"Which blood type is known as the universal donor?",o:["AB+","O-","O+","AB-"],a:1,t:"Human Body",d:"medium",e:"O negative (O-) is the universal donor for red blood cells because it lacks A, B, and Rh antigens, making it safe to give to anyone in an emergency."},
+  {q:"Which blood type is known as the universal recipient?",o:["O+","A+","AB+","B+"],a:2,t:"Human Body",d:"medium",e:"AB positive (AB+) is the universal recipient because people with this blood type can receive blood from any other blood type."},
+  {q:"What is the longest bone in the human body?",o:["Humerus","Tibia","Femur","Fibula"],a:2,t:"Human Body",d:"easy",e:"The femur (thigh bone) is the longest and strongest bone in the human body, running from the hip to the knee."},
+  {q:"What is the smallest bone in the human body?",o:["Stapes (in the ear)","Patella","Coccyx","Pisiform"],a:0,t:"Human Body",d:"medium",e:"The stapes, one of the three tiny bones (ossicles) in the middle ear, is the smallest bone in the human body at about 3mm long."},
+  {q:"How many pairs of chromosomes does a normal human cell contain?",o:["22","23","24","46"],a:1,t:"Human Body",d:"medium",e:"Human cells normally contain 23 pairs of chromosomes (46 total) — 22 pairs of autosomes and 1 pair of sex chromosomes (XX for female, XY for male)."},
+  {q:"What organ produces insulin in the human body?",o:["Liver","Kidney","Pancreas","Spleen"],a:2,t:"Human Body",d:"easy",e:"The pancreas produces insulin, a hormone that regulates blood glucose levels. Failure to produce enough insulin leads to diabetes mellitus."},
+  {q:"What is the approximate temperature of the normal human body in Celsius?",o:["35°C","36.6°C – 37°C","38°C","39°C"],a:1,t:"Human Body",d:"easy",e:"Normal human body temperature is approximately 37°C (98.6°F), though it varies slightly by time of day and individual."},
+  {q:"Which part of the brain controls balance and coordination?",o:["Cerebrum","Cerebellum","Medulla oblongata","Hypothalamus"],a:1,t:"Human Body",d:"medium",e:"The cerebellum, at the back of the brain, controls balance, coordination, and fine motor movements."},
+  {q:"What is the name of the protein that carries oxygen in red blood cells?",o:["Insulin","Haemoglobin","Keratin","Collagen"],a:1,t:"Human Body",d:"medium",e:"Haemoglobin is the iron-containing protein in red blood cells that binds oxygen in the lungs and carries it to tissues throughout the body."},
+
+  /* ── CHEMISTRY ── */
+  {q:"What is the chemical symbol for iron?",o:["Ir","In","Fe","Fr"],a:2,t:"Chemistry",d:"medium",e:"Iron's chemical symbol is Fe, from the Latin word 'ferrum'. Iron is the most abundant element on Earth by mass."},
+  {q:"What is the chemical symbol for sodium?",o:["So","Sd","Sn","Na"],a:3,t:"Chemistry",d:"medium",e:"Sodium's symbol is Na, from the Latin 'natrium'. Sodium is a highly reactive alkali metal and essential for nerve function."},
+  {q:"What is the chemical symbol for potassium?",o:["Po","Pt","K","Pm"],a:2,t:"Chemistry",d:"medium",e:"Potassium's symbol is K, from the Latin 'kalium'. It is vital for heart and muscle function."},
+  {q:"What is the most abundant gas in Earth's atmosphere?",o:["Oxygen","Carbon dioxide","Nitrogen","Argon"],a:2,t:"Chemistry",d:"easy",e:"Nitrogen makes up about 78% of Earth's atmosphere, followed by oxygen at 21%."},
+  {q:"What happens when an acid and a base react together?",o:["They form an explosive compound","Neutralisation — producing salt and water","They both evaporate","The acid becomes stronger"],a:1,t:"Chemistry",d:"medium",e:"When an acid and a base react, neutralisation occurs, producing a salt and water. For example, hydrochloric acid + sodium hydroxide → sodium chloride (table salt) + water."},
+  {q:"What is the pH value of pure water?",o:["5","6","7","8"],a:2,t:"Chemistry",d:"easy",e:"Pure water has a pH of exactly 7, making it neutral — neither acidic (below 7) nor basic/alkaline (above 7)."},
+  {q:"What is the chemical formula for common table salt?",o:["NaCl","KCl","CaCl2","MgCl2"],a:0,t:"Chemistry",d:"easy",e:"Table salt is sodium chloride with the formula NaCl — one sodium atom bonded to one chlorine atom."},
+  {q:"What is the atomic number of carbon?",o:["4","6","8","12"],a:1,t:"Chemistry",d:"medium",e:"Carbon has atomic number 6, meaning it has 6 protons. It is the basis of all organic chemistry and life on Earth."},
+  {q:"Which gas is produced during photosynthesis as a by-product?",o:["Carbon dioxide","Hydrogen","Nitrogen","Oxygen"],a:3,t:"Chemistry",d:"easy",e:"Oxygen is the by-product of photosynthesis. Plants split water molecules and release oxygen into the atmosphere — the source of almost all Earth's atmospheric oxygen."},
+  {q:"What is dry ice made of?",o:["Frozen water with chemicals","Solid carbon dioxide","Frozen nitrogen","Solid oxygen"],a:1,t:"Chemistry",d:"medium",e:"Dry ice is solid carbon dioxide (CO2). It sublimates (turns directly from solid to gas) at -78.5°C without passing through a liquid phase."},
+  {q:"What element has the chemical symbol Hg?",o:["Hydrogen","Magnesium","Mercury","Manganese"],a:2,t:"Chemistry",d:"hard",e:"Hg is the symbol for mercury, from the Latin 'hydrargyrum' meaning 'liquid silver'. Mercury is the only metal that is liquid at room temperature."},
+  {q:"Which particle in an atom has no electric charge?",o:["Proton","Electron","Neutron","Positron"],a:2,t:"Chemistry",d:"easy",e:"Neutrons are subatomic particles found in the nucleus alongside protons but carry no electric charge. Protons are positive; electrons are negative."},
+
+  /* ── PHYSICS ── */
+  {q:"What is the unit of electric current?",o:["Volt","Watt","Ohm","Ampere"],a:3,t:"Physics",d:"easy",e:"The ampere (A) is the SI unit of electric current. Volt measures electrical potential, Watt measures power, and Ohm measures resistance."},
+  {q:"What does Ohm's Law state?",o:["Power = Current × Voltage","Voltage = Current × Resistance","Current = Voltage × Resistance","Resistance = Power × Current"],a:1,t:"Physics",d:"medium",e:"Ohm's Law states that Voltage (V) = Current (I) × Resistance (R), meaning the voltage across a conductor is directly proportional to the current through it."},
+  {q:"What is the SI unit of force?",o:["Pascal","Joule","Newton","Watt"],a:2,t:"Physics",d:"easy",e:"The Newton (N) is the SI unit of force, named after Isaac Newton. One Newton is the force required to accelerate 1 kg at 1 m/s²."},
+  {q:"What is the SI unit of energy?",o:["Watt","Newton","Pascal","Joule"],a:3,t:"Physics",d:"easy",e:"The Joule (J) is the SI unit of energy, named after James Prescott Joule. One joule equals the work done by a force of one newton over one metre."},
+  {q:"What type of energy does a moving object possess?",o:["Potential energy","Chemical energy","Kinetic energy","Nuclear energy"],a:2,t:"Physics",d:"easy",e:"A moving object possesses kinetic energy, which depends on its mass and velocity (KE = ½mv²)."},
+  {q:"What is the freezing point of water in Celsius?",o:["-10°C","0°C","4°C","100°C"],a:1,t:"Physics",d:"easy",e:"Water freezes at 0°C (32°F) under standard atmospheric pressure."},
+  {q:"What is the boiling point of water in Celsius?",o:["90°C","95°C","100°C","110°C"],a:2,t:"Physics",d:"easy",e:"Water boils at 100°C (212°F) at sea level under standard atmospheric pressure. At higher altitudes, lower pressure causes it to boil at lower temperatures."},
+  {q:"Which colour has the longest wavelength in the visible light spectrum?",o:["Violet","Blue","Green","Red"],a:3,t:"Physics",d:"medium",e:"Red has the longest wavelength in the visible spectrum (around 620–750 nm). Violet has the shortest. The order is: ROY G BIV (Red, Orange, Yellow, Green, Blue, Indigo, Violet)."},
+  {q:"What is the phenomenon where light bends as it passes from one medium to another?",o:["Reflection","Refraction","Diffraction","Dispersion"],a:1,t:"Physics",d:"medium",e:"Refraction is the bending of light (or any wave) as it passes from one medium to another of different density — for example, a straw appearing bent in a glass of water."},
+  {q:"What does E=mc² represent?",o:["Energy equals mass times the speed of sound squared","Energy equals mass times the speed of light squared","Force equals mass times acceleration","Entropy equals mass times chemical change"],a:1,t:"Physics",d:"medium",e:"Einstein's famous equation E=mc² states that energy (E) equals mass (m) times the speed of light (c) squared, showing that mass and energy are interchangeable."},
+  {q:"What is absolute zero in Celsius?",o:["-100°C","-200°C","-273.15°C","-300°C"],a:2,t:"Physics",d:"medium",e:"Absolute zero is -273.15°C (or 0 Kelvin), the theoretical lowest possible temperature at which all molecular motion stops."},
+
+  /* ── SPACE & ASTRONOMY ── */
+  {q:"What is the name of the galaxy that contains our solar system?",o:["Andromeda","Triangulum","Milky Way","Magellanic Cloud"],a:2,t:"Space & Astronomy",d:"easy",e:"Our solar system is located in the Milky Way galaxy, a barred spiral galaxy containing an estimated 100–400 billion stars."},
+  {q:"Which planet is closest in size to Earth?",o:["Mars","Mercury","Venus","Neptune"],a:2,t:"Space & Astronomy",d:"medium",e:"Venus is the closest planet to Earth in size, with a diameter of about 12,104 km compared to Earth's 12,742 km."},
+  {q:"What is a light-year a measure of?",o:["Time","Speed","Distance","Brightness"],a:2,t:"Space & Astronomy",d:"medium",e:"A light-year is a unit of distance — the distance light travels in one year, approximately 9.46 trillion kilometres. It is not a measure of time."},
+  {q:"What is the name of the force that keeps planets in orbit around the Sun?",o:["Magnetism","Gravity","Centrifugal force","Electromagnetic force"],a:1,t:"Space & Astronomy",d:"easy",e:"Gravity is the force that keeps planets, moons, and other bodies in orbit. The Sun's massive gravity holds all the planets in the solar system in their orbits."},
+  {q:"How many moons does Mars have?",o:["0","1","2","4"],a:2,t:"Space & Astronomy",d:"medium",e:"Mars has two small moons: Phobos and Deimos. They are named after the Greek gods of fear and dread."},
+  {q:"What is the name of the largest volcano in the solar system?",o:["Krakatoa","Mount Olympus on Earth","Olympus Mons on Mars","Mauna Loa on Earth"],a:2,t:"Space & Astronomy",d:"medium",e:"Olympus Mons on Mars is the largest volcano in the solar system, standing about 21.9 km high and covering an area the size of France."},
+  {q:"What is a black hole?",o:["A star with no light","A region of space with gravity so strong that nothing, not even light, can escape","An empty region of space","A collapsed moon"],a:1,t:"Space & Astronomy",d:"medium",e:"A black hole is a region of space where gravity is so intense that nothing — not even light — can escape it. They form from the collapse of massive stars."},
+  {q:"What is the name of the first artificial satellite launched into space?",o:["Explorer 1","Vostok 1","Sputnik 1","Apollo 1"],a:2,t:"Space & Astronomy",d:"medium",e:"Sputnik 1, launched by the Soviet Union on October 4, 1957, was the first artificial satellite to orbit Earth, marking the beginning of the space age."},
+  {q:"How long does it take Earth to complete one revolution around the Sun?",o:["24 hours","30 days","365.25 days","100 days"],a:2,t:"Space & Astronomy",d:"easy",e:"Earth takes approximately 365.25 days to complete one orbit around the Sun — which is why we have a leap year every 4 years to account for the extra quarter day."},
+  {q:"What causes a solar eclipse?",o:["Earth passes between the Sun and Moon","The Moon passes between Earth and the Sun","The Sun moves behind the Moon's orbit","Earth's shadow falls on the Moon"],a:1,t:"Space & Astronomy",d:"medium",e:"A solar eclipse occurs when the Moon passes between Earth and the Sun, blocking sunlight and casting a shadow on Earth. A lunar eclipse is when Earth's shadow falls on the Moon."},
+
+  /* ── BIOLOGY & NATURE ── */
+  {q:"What is the process by which a caterpillar becomes a butterfly called?",o:["Germination","Metamorphosis","Mitosis","Osmosis"],a:1,t:"Biology & Nature",d:"easy",e:"Metamorphosis is the biological process of transformation — a caterpillar (larva) forms a chrysalis (pupa) and emerges as a butterfly (adult)."},
+  {q:"What is the name of the process by which cells divide to produce identical copies?",o:["Meiosis","Mitosis","Osmosis","Diffusion"],a:1,t:"Biology & Nature",d:"medium",e:"Mitosis is the process of cell division producing two genetically identical daughter cells. Meiosis produces four genetically different cells (used in reproduction)."},
+  {q:"What is the basic unit of life?",o:["Atom","Molecule","Cell","Tissue"],a:2,t:"Biology & Nature",d:"easy",e:"The cell is the basic structural and functional unit of all living organisms. Some organisms are single-celled (bacteria); others have trillions of cells (humans)."},
+  {q:"What do we call animals that eat only plants?",o:["Carnivores","Herbivores","Omnivores","Scavengers"],a:1,t:"Biology & Nature",d:"easy",e:"Herbivores are animals that feed exclusively on plants. Examples include cows, elephants, rabbits, and giraffes."},
+  {q:"What do we call animals that eat both plants and animals?",o:["Carnivores","Herbivores","Omnivores","Detritivores"],a:2,t:"Biology & Nature",d:"easy",e:"Omnivores eat both plants and animals. Humans, bears, pigs, and chimpanzees are examples of omnivores."},
+  {q:"What is the name of the pigment that gives plants their green colour?",o:["Melanin","Chlorophyll","Carotene","Anthocyanin"],a:1,t:"Biology & Nature",d:"easy",e:"Chlorophyll is the green pigment in plant cells that captures light energy for photosynthesis. It absorbs red and blue light but reflects green light."},
+  {q:"How many legs does an insect have?",o:["4","6","8","10"],a:1,t:"Biology & Nature",d:"easy",e:"All insects have 6 legs, which is one of the defining characteristics of the insect class. Spiders, which have 8 legs, are arachnids, not insects."},
+  {q:"What is the name of the process by which water moves through a plant from roots to leaves?",o:["Osmosis","Photosynthesis","Transpiration","Diffusion"],a:2,t:"Biology & Nature",d:"medium",e:"Transpiration is the process by which water is absorbed by roots, travels up through the stem, and evaporates through tiny pores (stomata) in the leaves."},
+  {q:"What is the term for an animal that is active at night?",o:["Diurnal","Nocturnal","Crepuscular","Hibernating"],a:1,t:"Biology & Nature",d:"medium",e:"Nocturnal animals are active at night and sleep during the day. Examples include owls, bats, and bush babies."},
+  {q:"Which gas do humans exhale when breathing out?",o:["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],a:2,t:"Biology & Nature",d:"easy",e:"Humans exhale carbon dioxide (CO2), a waste product of cellular respiration where glucose is broken down to produce energy."},
+  {q:"What is the study of fossils called?",o:["Archaeology","Palaeontology","Geology","Anthropology"],a:1,t:"Biology & Nature",d:"medium",e:"Palaeontology is the scientific study of fossils — the preserved remains of ancient organisms — to understand the history of life on Earth."},
+  {q:"What is the name of the thread-like structures inside a cell nucleus that carry genetic information?",o:["Ribosomes","Chromosomes","Mitochondria","Vacuoles"],a:1,t:"Biology & Nature",d:"medium",e:"Chromosomes are thread-like structures made of DNA and proteins, found in the cell nucleus. They carry the genetic information (genes) of an organism."},
+  {q:"What causes earthquakes?",o:["Volcanic eruptions only","Movement of tectonic plates","Heavy rainfall","Magnetic pole shifts"],a:1,t:"Earth Science",d:"medium",e:"Earthquakes are caused primarily by the movement of tectonic plates — the giant sections of Earth's crust that float on the mantle. When plates collide, separate or slide, energy is released as seismic waves."},
+  {q:"What is the Richter scale used to measure?",o:["Wind speed","Ocean depth","Earthquake magnitude","Volcanic temperature"],a:2,t:"Earth Science",d:"medium",e:"The Richter scale (and its successor, the moment magnitude scale) measures the magnitude (energy released) of earthquakes. Each whole number increase represents about 31.6 times more energy."},
+  {q:"What is the name of the process by which rocks are broken down by weather and natural forces?",o:["Erosion","Weathering","Sedimentation","Metamorphism"],a:1,t:"Earth Science",d:"medium",e:"Weathering is the breaking down of rocks, soil, and minerals through contact with water, air, and biological organisms. Erosion then transports the broken-down material elsewhere."},
+  {q:"What is the difference between a virus and a bacterium?",o:["Viruses are larger than bacteria","Bacteria are non-living; viruses are living","Viruses need a host cell to reproduce; bacteria can reproduce on their own","There is no difference"],a:2,t:"Biology & Nature",d:"hard",e:"Bacteria are single-celled living organisms that can reproduce independently. Viruses are not considered truly living — they are genetic material (DNA or RNA) in a protein coat that must invade a host cell to replicate."}
+];
+
 const FIRSTS_BANK=[
   /* ── NIGERIA FIRSTS — LEGAL & POLITICAL ── */
   {q:"Who was the first indigenous Nigerian lawyer?",o:["Herbert Macaulay","Sapara Ode","Christopher Alexander Sapara Williams","Nnamdi Azikiwe"],a:2,t:"Nigeria Firsts – Legal & Political",d:"medium",e:"Christopher Alexander Sapara Williams was called to the English bar on November 17, 1879 — the first indigenous Nigerian lawyer and also the first Black man called to the English bar. He studied at the Inner Temple, London."},
@@ -910,7 +982,8 @@ const FIRSTS_BANK=[
 const THEMES={
   nigeria:{accent:'#008751',accentDark:'#005c37',accentLight:'#d4f0e4',accentTextDark:'#004d2e',name:'Nigeria CBT',emoji:'🇳🇬'},
   global:{accent:'#1d4ed8',accentDark:'#1e40af',accentLight:'#dbeafe',accentTextDark:'#1e3a8a',name:'Global Knowledge CBT',emoji:'🌍'},
-  firsts:{accent:'#7c3aed',accentDark:'#5b21b6',accentLight:'#ede9fe',accentTextDark:'#4c1d95',name:'Nigeria Firsts, SDGs & Agency Heads',emoji:'🏅'}
+  firsts:{accent:'#7c3aed',accentDark:'#5b21b6',accentLight:'#ede9fe',accentTextDark:'#4c1d95',name:'Nigeria Firsts, SDGs & Agency Heads',emoji:'🏅'},
+  science:{accent:'#0891b2',accentDark:'#0e7490',accentLight:'#cffafe',accentTextDark:'#164e63',name:'General Science CBT',emoji:'🔬'}
 };
 
 let section=null,TOTAL=0,qs=[],cur=0,ans=[],score=0;
@@ -936,6 +1009,7 @@ function showPicker(){
     {key:'nigeria',bar:'#008751',icon:'#d4f0e4',emoji:'🇳🇬',label:'Nigeria CBT',desc:`${NIGERIA_BANK.length} questions · Politics, States, History, Sports, Music, Agencies & Ministers`,countBg:'#d4f0e4',countColor:'#004d2e'},
     {key:'global',bar:'#1d4ed8',icon:'#dbeafe',emoji:'🌍',label:'Global Knowledge CBT',desc:`${GLOBAL_BANK.length} questions · Flags, World Firsts, Founders, Geography, Records & Culture`,countBg:'#dbeafe',countColor:'#1e3a8a'},
     {key:'firsts',bar:'#7c3aed',icon:'#ede9fe',emoji:'🏅',label:'Nigeria Firsts, SDGs & Agencies',desc:`${FIRSTS_BANK.length} questions · Nigerian pioneers, all 17 SDGs, heads of parastatals`,countBg:'#ede9fe',countColor:'#4c1d95'},
+    {key:'science',bar:'#0891b2',icon:'#cffafe',emoji:'🔬',label:'General Science CBT',desc:`${SCIENCE_BANK.length} questions · Biology, Chemistry, Physics, Space & Earth Science`,countBg:'#cffafe',countColor:'#164e63'},
   ];
   main.innerHTML=`<div class="pick-grid">${cards.map(c=>`
     <button class="pick-card" onclick="selectSection('${c.key}')">
@@ -956,7 +1030,7 @@ function showPicker(){
 function selectSection(key){
   section=key;
   const t=THEMES[key];
-  TOTAL=key==='nigeria'?NIGERIA_BANK.length:key==='global'?GLOBAL_BANK.length:FIRSTS_BANK.length;
+  TOTAL=key==='nigeria'?NIGERIA_BANK.length:key==='global'?GLOBAL_BANK.length:key==='firsts'?FIRSTS_BANK.length:SCIENCE_BANK.length;
   document.getElementById('hdr-title').textContent=t.name;
   document.getElementById('hdr-sub').textContent=`${TOTAL} questions · Set your timer to begin`;
   applyTheme(key);
@@ -1011,7 +1085,7 @@ function startExam(){
   timerOn=customMins>0;
   totalSecs=customMins*60;
   secsLeft=totalSecs;
-  const src=section==='nigeria'?NIGERIA_BANK:section==='global'?GLOBAL_BANK:FIRSTS_BANK;
+  const src=section==='nigeria'?NIGERIA_BANK:section==='global'?GLOBAL_BANK:section==='firsts'?FIRSTS_BANK:SCIENCE_BANK;
   qs=[...src].sort(()=>Math.random()-0.5);
   ans=new Array(TOTAL).fill(null);
   cur=0;score=0;
